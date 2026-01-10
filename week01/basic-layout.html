@@ -4,80 +4,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="WDD 131 Dynamic Web Fundamentals course homepage by Jéssica Seniw, including personal information, location, and web development resources.">
+    <meta name="description" content="WDD 131 Dynamic Web Fundamentals course homepage">
     <meta name="author" content="Jéssica Seniw">
 
     <title>WDD 131: Dynamic Web Fundamentals | Jéssica Seniw</title>
 
-    <!-- Google Fonts -->
+    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- Required CSS -->
+    <!-- CSS -->
     <link rel="stylesheet" href="styles/base.css">
 
-    <!-- JavaScript -->
+    <!-- JS -->
     <script src="scripts/getdates.js" defer></script>
 </head>
 
 <body>
 
     <header>
-        <!-- Course title (no heading tag on purpose) -->
         <span id="course-title">WDD 131: Dynamic Web Fundamentals</span>
 
         <nav>
-            <a href="https://www.linkedin.com/in/jessicaseniwborges/">LinkedIn</a>
-            <a href="https://byupw.instructure.com">Canvas</a>
-            <a href="https://www.churchofjesuschrist.org/study/scriptures/bofm/1-ne/1?lang=por&id=p1#p1">Scripture</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">I-Learn</a>
+            <a href="#">Scripture</a>
             <a href="#">Final Project</a>
         </nav>
     </header>
 
     <main>
 
-        <!-- SINGLE h1 (student name) -->
+        <!-- SINGLE H1 -->
         <h1>Jéssica Seniw</h1>
 
-        <!-- SINGLE h2 -->
-        <h2>About Me</h2>
+        <section class="card about">
+            <div class="card-title">About Me</div>
 
-        <section class="card">
             <div class="about-content">
                 <p>
-                    My name is Jéssica Seniw, and I am from southern Brazil. I work at Engemon and study Software
-                    Development through BYU-Pathway Worldwide with BYU-Idaho. I enjoy learning new technologies
-                    and building web projects.
+                    My name is Jéssica and I am from southern Brazil. I study Software Development through
+                    BYU-Pathway Worldwide. I enjoy learning new technologies and building web projects.
                 </p>
 
-                <img src="images/profile.jpg" alt="Portrait of Jéssica Seniw">
+                <img src="images/profile.jpg" alt="Profile photo">
             </div>
-        </section>
 
-        <!-- SINGLE h3 -->
-        <h3>Porto Alegre, Brazil</h3>
+            <div class="location-title">Porto Alegre, Brazil</div>
 
-        <section class="card">
             <div class="location">
-                <img src="images/porto_alegre.jpg" alt="City of Porto Alegre">
+                <img src="images/porto_alegre.jpg" alt="Porto Alegre city">
                 <p>
-                    Porto Alegre is the capital of Rio Grande do Sul, known for its cultural diversity, education,
-                    and beautiful sunsets by Guaíba Lake.
+                    Porto Alegre is the capital of Rio Grande do Sul and is known for its culture,
+                    education, and beautiful sunsets.
                 </p>
             </div>
         </section>
 
-        <!-- Resources (no headings) -->
-        <section class="card">
-            <p class="resources-title">Web Dev Resources</p>
+        <section class="card resources">
+            <div class="card-title">Web Dev Resources</div>
 
             <ul>
                 <li><a href="https://dev.to">Dev.to Community</a></li>
                 <li><a href="https://www.smashingmagazine.com">Smashing Magazine</a></li>
-                <li><a href="https://css-tricks.com">CSS-Tricks</a></li>
-                <li><a href="https://www.w3schools.com">W3Schools</a></li>
+                <li><a href="https://css-tricks.com">CSS Tricks</a></li>
+                <li><a href="https://www.w3schools.com">W3 Schools</a></li>
                 <li><a href="https://www.udemy.com">Udemy</a></li>
             </ul>
         </section>
@@ -85,8 +77,8 @@
     </main>
 
     <footer>
-        <p>&copy; <span id="year"></span> | Jéssica Seniw | Brazil</p>
-        <p>Last Modified: <span id="lastModified"></span></p>
+        <p>© <span id="year"></span> Jéssica Seniw | Brazil</p>
+        <p class="modified">Last Modification: <span id="lastModified"></span></p>
     </footer>
 
 </body>
