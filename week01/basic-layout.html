@@ -1,21 +1,36 @@
 <!DOCTYPE html>
+<!-- Document type declaration: HTML5 -->
+
 <html lang="en">
+<!-- Root element with language attribute -->
 
 <head>
+    <!-- Character encoding -->
     <meta charset="UTF-8" />
+
+    <!-- Responsive viewport settings -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Page description for SEO -->
     <meta name="description" content="Home Page" />
+
+    <!-- Page title shown in the browser tab -->
     <title>Jéssica Seniw - WDD 131</title>
+
+    <!-- External CSS file -->
     <link rel="stylesheet" href="/styles/layout.css">
+
+    <!-- External JavaScript file with defer attribute -->
     <script src="/scripts/getdates.js" defer></script>
 </head>
 
 <body>
-
+    <!-- Header section -->
     <header class="top-header">
         <h1>WDD 131: Dynamic Web Fundamentals</h1>
     </header>
 
+    <!-- Navigation menu -->
     <nav class="menu">
         <a href="https://www.linkedin.com/in/jessicaseniwborges/">LinkedIn</a>
         <a href="https://byupw.instructure.com">Canvas</a>
@@ -23,13 +38,19 @@
         <a href="#">Final Project</a>
     </nav>
 
+    <!-- Main content area -->
     <main class="content">
+
+        <!-- Page main title -->
         <div class="name-title">
             <h1>Jéssica Seniw</h1>
         </div>
+
+        <!-- About Me card -->
         <section class="card about">
             <h2>About Me</h2>
 
+            <!-- Profile text and image -->
             <div class="about-content">
                 <p>
                     My name is Jéssica Seniw, and I am from southern Brazil. I currently work at Engemon, where I
@@ -43,39 +64,53 @@
                     in software development.
                 </p>
 
+                <!-- Profile image -->
                 <img src="/images/profile.jpg" alt="Profile Picture">
             </div>
 
+            <!-- Location title -->
             <h3>Porto Alegre, Brazil</h3>
 
+            <!-- Location image and description -->
             <div class="location">
                 <img src="/images/porto_alegre.jpg" alt="Porto Alegre">
                 <p>
                     Porto Alegre is the capital city of the state of Rio Grande do Sul, located in southern Brazil. The
                     city is known for its cultural diversity, history, and beautiful sunsets by Guaíba Lake. It offers
                     many parks, museums, universities, and cultural spaces that make the city active and welcoming.
-                    <br><br>Porto Alegre has a strong economy and values education and innovation. Local traditions
+                    <br><br>
+                    Porto Alegre has a strong economy and values education and innovation. Local traditions
                     such as churrasco and chimarrão are an important part of the culture and daily life of the people.
                     The city combines urban development with natural beauty, making it a great place to live and study.
                 </p>
             </div>
         </section>
 
+        <!-- Web Development Resources card -->
         <aside class="card resources">
             <h2>Web Dev Resources</h2>
+
+            <!-- Resource links list -->
             <ul>
-                <li><a href="#">Dev.to Community</a></li>
-                <li><a href="#">Smashing Magazine</a></li>
-                <li><a href="#">CSS Tricks</a></li>
-                <li><a href="#">W3 Schools</a></li>
-                <li><a href="#">Udemy</a></li>
+                <li><a href="https://dev.to">Dev.to Community</a></li>
+                <li><a href="https://www.smashingmagazine.com">Smashing Magazine</a></li>
+                <li><a href="https://css-tricks.com">CSS Tricks</a></li>
+                <li><a href="https://www.w3schools.com">W3 Schools</a></li>
+                <li><a href="https://www.udemy.com">Udemy</a></li>
             </ul>
         </aside>
+
     </main>
+
+    <!-- Footer section -->
     <footer>
+        <!-- Dynamic copyright year -->
         <p>&copy; <span id="year"></span> | Jéssica Seniw | Brazil</p>
+
+        <!-- Dynamic last modified date -->
         <p>Last Modified: <span id="lastModified"></span></p>
     </footer>
+
 </body>
 
 </html>
