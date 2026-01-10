@@ -28,6 +28,13 @@ footer {
     padding: 1rem;
 }
 
+/* COURSE TITLE */
+.course-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
 /* FLEXBOX (REQUIRED) */
 nav {
     display: flex;
