@@ -4,7 +4,7 @@
     font-family: 'Roboto', sans-serif;
 }
 
-/* STRUCTURAL RULES (REQUIRED) */
+/* STRUCTURAL RULES */
 header {
     background-color: #0e4a52;
     color: white;
@@ -29,13 +29,14 @@ footer {
 }
 
 /* COURSE TITLE */
-.course-title {
-    font-size: 1.5rem;
+#course-title {
+    font-size: 1.4rem;
     font-weight: 700;
+    display: block;
     margin-bottom: 0.75rem;
 }
 
-/* FLEXBOX (REQUIRED) */
+/* FLEXBOX */
 nav {
     display: flex;
     justify-content: space-around;
@@ -49,16 +50,18 @@ nav a {
     font-weight: 700;
 }
 
-/* HOVER (REQUIRED) */
+/* HOVER */
 a:hover {
     text-decoration: underline;
 }
 
-/* MAIN TITLE */
-main h1 {
+/* HEADINGS */
+main h1,
+main h2,
+main h3 {
     grid-column: 1 / -1;
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
 }
 
 /* CARDS */
@@ -66,28 +69,13 @@ main h1 {
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 8px;
+    padding: 1rem;
 }
 
-/* CARD HEADERS */
-.card h2 {
-    background-color: #0e4a52;
-    color: white;
-    padding: 0.5rem;
-    text-align: center;
-    border-radius: 8px 8px 0 0;
-}
-
-.card h3 {
-    margin: 1rem;
-    border-bottom: 2px solid #ccc;
-    padding-bottom: 0.5rem;
-}
-
-/* ABOUT SECTION */
+/* ABOUT */
 .about-content {
     display: flex;
     gap: 1rem;
-    padding: 1rem;
     align-items: center;
 }
 
@@ -100,7 +88,6 @@ main h1 {
 .location {
     display: flex;
     gap: 1rem;
-    padding: 1rem;
     align-items: center;
 }
 
@@ -110,9 +97,14 @@ main h1 {
 }
 
 /* RESOURCES */
+.resources-title {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
 ul {
     list-style: none;
-    padding: 1rem;
+    padding: 0;
 }
 
 li {

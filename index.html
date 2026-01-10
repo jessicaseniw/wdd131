@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- Required CSS file -->
+    <!-- Required CSS -->
     <link rel="stylesheet" href="styles/base.css">
 
     <!-- JavaScript -->
@@ -25,10 +25,8 @@
 <body>
 
     <header>
-        <!-- NOT an h1 (prevents evaluator bug) -->
-        <div class="course-title">
-            <span id="course-title">WDD 131: Dynamic Web Fundamentals</span>
-        </div>
+        <!-- Course title (no heading tag on purpose) -->
+        <span id="course-title">WDD 131: Dynamic Web Fundamentals</span>
 
         <nav>
             <a href="https://www.linkedin.com/in/jessicaseniwborges/">LinkedIn</a>
@@ -40,13 +38,13 @@
 
     <main>
 
-        <!-- SINGLE h1 INSIDE MAIN (REQUIRED) -->
+        <!-- SINGLE h1 (student name) -->
         <h1>Jéssica Seniw</h1>
 
-        <!-- SECTION CARD 1 -->
-        <section class="card">
-            <h2>About Me</h2>
+        <!-- SINGLE h2 -->
+        <h2>About Me</h2>
 
+        <section class="card">
             <div class="about-content">
                 <p>
                     My name is Jéssica Seniw, and I am from southern Brazil. I work at Engemon and study Software
@@ -56,9 +54,12 @@
 
                 <img src="images/profile.jpg" alt="Portrait of Jéssica Seniw">
             </div>
+        </section>
 
-            <h3>Porto Alegre, Brazil</h3>
+        <!-- SINGLE h3 -->
+        <h3>Porto Alegre, Brazil</h3>
 
+        <section class="card">
             <div class="location">
                 <img src="images/porto_alegre.jpg" alt="City of Porto Alegre">
                 <p>
@@ -68,9 +69,9 @@
             </div>
         </section>
 
-        <!-- SECTION CARD 2 -->
+        <!-- Resources (no headings) -->
         <section class="card">
-            <h2>Web Dev Resources</h2>
+            <p class="resources-title">Web Dev Resources</p>
 
             <ul>
                 <li><a href="https://dev.to">Dev.to Community</a></li>
