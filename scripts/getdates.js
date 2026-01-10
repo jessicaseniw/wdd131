@@ -1,6 +1,7 @@
-// Current year
-const currentYear = new Date().getFullYear();
-document.getElementById("year").textContent = currentYear;
+// Get the current year
+const yearSpan = document.querySelector("#year");
+yearSpan.textContent = new Date().getFullYear();
 
-// Last modified date
-document.getElementById("lastModified").textContent = document.lastModified;
+// Get the last modified date
+const lastModifiedSpan = document.querySelector("#lastModified");
+lastModifiedSpan.textContent = document.lastModified;

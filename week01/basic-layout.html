@@ -1,113 +1,94 @@
 <!DOCTYPE html>
-<!-- Document type declaration: HTML5 -->
-
-<html lang="en">
-<!-- Root element with language attribute -->
+<html lang="en-US">
 
 <head>
-    <!-- Character encoding -->
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="WDD 131 Dynamic Web Fundamentals course homepage by Jéssica Seniw, including personal profile, location information, and curated web development resources.">
+    <meta name="author" content="Jéssica Seniw">
 
-    <!-- Responsive viewport settings -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WDD 131: Dynamic Web Fundamentals | Jéssica Seniw</title>
 
-    <!-- Page description for SEO -->
-    <meta name="description" content="Home Page" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- Page title shown in the browser tab -->
-    <title>Jéssica Seniw - WDD 131</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/base.css">
 
-    <!-- External CSS file -->
-    <link rel="stylesheet" href="styles/layout.css">
-
-    <!-- External JavaScript file with defer attribute -->
+    <!-- JavaScript -->
     <script src="scripts/getdates.js" defer></script>
 </head>
 
 <body>
-    <!-- Header section -->
+
     <header class="top-header">
-        <h1>WDD 131: Dynamic Web Fundamentals</h1>
+        <h1>
+            <span id="course-title">WDD 131: Dynamic Web Fundamentals</span>
+        </h1>
+
+        <nav class="menu">
+            <a href="https://www.linkedin.com/in/jessicaseniwborges/">LinkedIn</a>
+            <a href="https://byupw.instructure.com">Canvas</a>
+            <a href="https://www.churchofjesuschrist.org/study/scriptures/bofm/1-ne/1?lang=por&id=p1#p1">Scripture</a>
+            <a href="#">Final Project</a>
+        </nav>
     </header>
 
-    <!-- Navigation menu -->
-    <nav class="menu">
-        <a href="https://www.linkedin.com/in/jessicaseniwborges/">LinkedIn</a>
-        <a href="https://byupw.instructure.com">Canvas</a>
-        <a href="https://www.churchofjesuschrist.org/study/scriptures/bofm/1-ne/1?lang=por&id=p1#p1">Scripture</a>
-        <a href="#">Final Project</a>
-    </nav>
-
-    <!-- Main content area -->
     <main class="content">
 
-        <!-- Page main title -->
-        <div class="name-title">
-            <h1>Jéssica Seniw</h1>
-        </div>
+        <!-- ÚNICO h1 DO MAIN -->
+        <h1 class="student-name">Jéssica Seniw</h1>
 
-        <!-- About Me card -->
+        <!-- CARD 1 -->
         <section class="card about">
             <h2>About Me</h2>
 
-            <!-- Profile text and image -->
             <div class="about-content">
                 <p>
                     My name is Jéssica Seniw, and I am from southern Brazil. I currently work at Engemon, where I
-                    develop responsibility, organization, and teamwork skills. I am also a Software Development student
-                    through BYU-Pathway Worldwide with BYU-Idaho, and I am constantly improving my knowledge in
-                    programming and web development.
+                    develop responsibility,
+                    organization, and teamwork skills. I am a Software Development student at BYU-Idaho through
+                    BYU-Pathway Worldwide.
                     <br><br>
                     I enjoy learning new technologies, creating web projects, and solving problems using logical
-                    thinking. In my free time, I like organizing my goals, studying English, and improving my
-                    professional skills. My goal is to continue growing in the technology field and build a solid career
-                    in software development.
+                    thinking.
                 </p>
 
-                <!-- Profile image -->
-                <img src="images/profile.jpg" alt="Profile Picture">
+                <img src="images/profile.jpg" alt="Portrait of Jéssica Seniw">
             </div>
 
-            <!-- Location title -->
             <h3>Porto Alegre, Brazil</h3>
 
-            <!-- Location image and description -->
             <div class="location">
-                <img src="images/porto_alegre.jpg" alt="Porto Alegre">
+                <img src="images/porto_alegre.jpg" alt="View of Porto Alegre city">
                 <p>
-                    Porto Alegre is the capital city of the state of Rio Grande do Sul, located in southern Brazil. The
-                    city is known for its cultural diversity, history, and beautiful sunsets by Guaíba Lake. It offers
-                    many parks, museums, universities, and cultural spaces that make the city active and welcoming.
-                    <br><br>
-                    Porto Alegre has a strong economy and values education and innovation. Local traditions
-                    such as churrasco and chimarrão are an important part of the culture and daily life of the people.
-                    The city combines urban development with natural beauty, making it a great place to live and study.
+                    Porto Alegre is the capital of Rio Grande do Sul, known for its culture, education, and beautiful
+                    sunsets by Guaíba Lake.
+                    The city blends urban development with natural beauty and strong traditions.
                 </p>
             </div>
         </section>
 
-        <!-- Web Development Resources card -->
-        <aside class="card resources">
+        <!-- CARD 2 -->
+        <section class="card resources">
             <h2>Web Dev Resources</h2>
 
-            <!-- Resource links list -->
             <ul>
                 <li><a href="https://dev.to">Dev.to Community</a></li>
                 <li><a href="https://www.smashingmagazine.com">Smashing Magazine</a></li>
-                <li><a href="https://css-tricks.com">CSS Tricks</a></li>
-                <li><a href="https://www.w3schools.com">W3 Schools</a></li>
+                <li><a href="https://css-tricks.com">CSS-Tricks</a></li>
+                <li><a href="https://www.w3schools.com">W3Schools</a></li>
                 <li><a href="https://www.udemy.com">Udemy</a></li>
             </ul>
-        </aside>
+        </section>
 
     </main>
 
-    <!-- Footer section -->
     <footer>
-        <!-- Dynamic copyright year -->
         <p>&copy; <span id="year"></span> | Jéssica Seniw | Brazil</p>
-
-        <!-- Dynamic last modified date -->
         <p>Last Modified: <span id="lastModified"></span></p>
     </footer>
 
