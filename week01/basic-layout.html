@@ -6,26 +6,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Home Page" />
     <title>Jéssica Seniw - WDD 131</title>
-    <link rel="stylesheet" href="../styles/layout.css">
+    <link rel="stylesheet" href="/styles/layout.css">
+    <script src="/scripts/getdates.js" defer></script>
 </head>
 
 <body>
-    <h1>WDD 131 - Jéssica Seniw</h1>
-    <header>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="projects.html">Projects</a>
-            <a href="services.html">Services</a>
-            <a href="contactus.html">Contact Us</a>
-        </nav>
+
+    <header class="top-header">
+        <h1>WDD 131: Dynamic Web Fundamentals</h1>
     </header>
-    <main>
-        <h2>Welcome to My Website</h2>
-        <p>This is the homepage of my WDD 131 project. Here you can find information about my projects, services, and
-            how to contact me.</p>
+
+    <nav class="menu">
+        <a href="https://www.linkedin.com/in/jessicaseniwborges/">LinkedIn</a>
+        <a href="https://byupw.instructure.com">Canvas</a>
+        <a href="https://www.churchofjesuschrist.org/study/scriptures/bofm/1-ne/1?lang=por&id=p1#p1">Scripture</a>
+        <a href="#">Final Project</a>
+    </nav>
+
+    <main class="content">
+        <div class="name-title">
+            <h1>Jéssica Seniw</h1>
+        </div>
+        <section class="card about">
+            <h2>About Me</h2>
+
+            <div class="about-content">
+                <p>
+                    My name is Jéssica Seniw, and I am from southern Brazil. I currently work at Engemon, where I
+                    develop responsibility, organization, and teamwork skills. I am also a Software Development student
+                    through BYU-Pathway Worldwide with BYU-Idaho, and I am constantly improving my knowledge in
+                    programming and web development.
+                    <br><br>
+                    I enjoy learning new technologies, creating web projects, and solving problems using logical
+                    thinking. In my free time, I like organizing my goals, studying English, and improving my
+                    professional skills. My goal is to continue growing in the technology field and build a solid career
+                    in software development.
+                </p>
+
+                <img src="/images/profile.jpg" alt="Profile Picture">
+            </div>
+
+            <h3>Porto Alegre, Brazil</h3>
+
+            <div class="location">
+                <img src="/images/porto_alegre.jpg" alt="Porto Alegre">
+                <p>
+                    Porto Alegre is the capital city of the state of Rio Grande do Sul, located in southern Brazil. The
+                    city is known for its cultural diversity, history, and beautiful sunsets by Guaíba Lake. It offers
+                    many parks, museums, universities, and cultural spaces that make the city active and welcoming.
+                    <br><br>Porto Alegre has a strong economy and values education and innovation. Local traditions
+                    such as churrasco and chimarrão are an important part of the culture and daily life of the people.
+                    The city combines urban development with natural beauty, making it a great place to live and study.
+                </p>
+            </div>
+        </section>
+
+        <aside class="card resources">
+            <h2>Web Dev Resources</h2>
+            <ul>
+                <li><a href="#">Dev.to Community</a></li>
+                <li><a href="#">Smashing Magazine</a></li>
+                <li><a href="#">CSS Tricks</a></li>
+                <li><a href="#">W3 Schools</a></li>
+                <li><a href="#">Udemy</a></li>
+            </ul>
+        </aside>
     </main>
     <footer>
-        <p>&copy; 2025 | Jéssica Seniw</p>
+        <p>&copy; <span id="year"></span> | Jéssica Seniw | Brazil</p>
+        <p>Last Modified: <span id="lastModified"></span></p>
     </footer>
 </body>
 
