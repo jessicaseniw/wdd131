@@ -1,7 +1,7 @@
 /* GLOBAL */
 * {
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Poiret One", sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -52,7 +52,7 @@ main {
 main h1 {
     grid-column: 1 / -1;
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: 1rem 1rem 1rem 4rem;
 }
 
 /* CARDS */
@@ -87,9 +87,11 @@ main h1 {
 
 /* LOCATION */
 .location-title {
-    text-align: center;
+    margin: 1rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 2px solid #ccc;
     font-weight: 700;
-    margin: 0.5rem 0;
+    text-align: center;
 }
 
 .location {
@@ -105,7 +107,13 @@ main h1 {
 }
 
 /* RESOURCES */
+.resources {
+    width: 300px;
+}
+
 .resources ul {
+    list-style: none;
+    /* remove bullets */
     padding: 1rem;
 }
 
@@ -114,7 +122,14 @@ main h1 {
 }
 
 .resources a {
-    color: blue;
+    color: #1f4e70;
+    text-decoration: none;
+    /* remove underline */
+    font-weight: 500;
+}
+
+/* Hover still required by rubric */
+.resources a:hover {
     text-decoration: underline;
 }
 
