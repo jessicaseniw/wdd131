@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <!-- Basic metadata -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Temple Album page with responsive design and interactive image cards.">
@@ -9,26 +10,32 @@
 
     <title>Temple Album | WDD 131</title>
 
-    <!-- Google Font -->
+    <!-- Google Fonts: Cinzel for headings, Roboto for body text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Roboto:wght@400;700&display=swap"
         rel="stylesheet">
 
-    <!-- CSS -->
+    <!-- CSS files (mobile-first and large screens) -->
     <link rel="stylesheet" href="../styles/temples.css">
     <link rel="stylesheet" href="../styles/temples-large.css">
 
-    <!-- JavaScript -->
+    <!-- JavaScript file -->
     <script src="../scripts/temples.js" defer></script>
 </head>
 
 <body>
+
+    <!-- ================= HEADER ================= -->
     <header>
+        <!-- Page title -->
         <span id="page-title">Temple Album</span>
+
+        <!-- Hamburger menu button (mobile view only) -->
         <button id="menu" aria-label="Menu">☰</button>
 
+        <!-- Navigation menu -->
         <nav class="navigation">
             <a href="../index.html">Home</a>
             <a href="#">Old</a>
@@ -38,29 +45,37 @@
         </nav>
     </header>
 
+    <!-- ================= MAIN CONTENT ================= -->
     <main>
+        <!-- Main page heading -->
         <h1>Home</h1>
 
+        <!-- Temple gallery section -->
         <section class="gallery">
 
-            <!-- 1 -->
+            <!-- ===== Temple Card 1 ===== -->
             <figure class="temple-card">
                 <div class="card-inner">
+                    <!-- Front of the card (image) -->
                     <div class="card-front">
                         <img src="https://churchofjesuschristtemples.org/assets/img/temples/salt-lake-temple/salt-lake-temple-15669-main.jpg"
                             alt="Salt Lake Temple">
                     </div>
+
+                    <!-- Back of the card (details shown on hover) -->
                     <div class="card-back">
                         <h2>Salt Lake Temple</h2>
                         <p>Utah, USA</p>
                         <p>Dedication: 6–24 April 1893</p>
-                        <p>Dedicated by: Pres. Wilford Woodruff</p>
+                        <p>Dedicated by: President Wilford Woodruff</p>
                     </div>
                 </div>
+
+                <!-- Visible caption below the image -->
                 <figcaption>Salt Lake Temple</figcaption>
             </figure>
 
-            <!-- 2 -->
+            <!-- ===== Temple Card 2 ===== -->
             <figure class="temple-card">
                 <div class="card-inner">
                     <div class="card-front">
@@ -70,14 +85,14 @@
                     <div class="card-back">
                         <h2>São Paulo Brazil Temple</h2>
                         <p>São Paulo, Brazil</p>
-                        <p>Dedication: 30 October–2 November 1978</p>
-                        <p>Dedicated by: Pres. Spencer W. Kimball</p>
+                        <p>Dedication: 30 October – 2 November 1978</p>
+                        <p>Dedicated by: President Spencer W. Kimball</p>
                     </div>
                 </div>
                 <figcaption>São Paulo Brazil Temple</figcaption>
             </figure>
 
-            <!-- 3 -->
+            <!-- ===== Temple Card 3 ===== -->
             <figure class="temple-card">
                 <div class="card-inner">
                     <div class="card-front">
@@ -88,13 +103,13 @@
                         <h2>Curitiba Brazil Temple</h2>
                         <p>Curitiba, Brazil</p>
                         <p>Dedication: 1 June 2008</p>
-                        <p>Dedicated by: Pres. Thomas S. Monson</p>
+                        <p>Dedicated by: President Thomas S. Monson</p>
                     </div>
                 </div>
                 <figcaption>Curitiba Brazil Temple</figcaption>
             </figure>
 
-            <!-- 4 -->
+            <!-- ===== Temple Card 4 ===== -->
             <figure class="temple-card">
                 <div class="card-inner">
                     <div class="card-front">
@@ -105,13 +120,13 @@
                         <h2>Campinas Brazil Temple</h2>
                         <p>Campinas, Brazil</p>
                         <p>Dedication: 17 May 2002</p>
-                        <p>Dedicated by: Pres. Gordon B. Hinckley</p>
+                        <p>Dedicated by: President Gordon B. Hinckley</p>
                     </div>
                 </div>
                 <figcaption>Campinas Brazil Temple</figcaption>
             </figure>
 
-            <!-- 5 -->
+            <!-- ===== Temple Card 5 ===== -->
             <figure class="temple-card">
                 <div class="card-inner">
                     <div class="card-front">
@@ -122,13 +137,13 @@
                         <h2>Porto Alegre Brazil Temple</h2>
                         <p>Porto Alegre, Brazil</p>
                         <p>Dedication: 17 December 2000</p>
-                        <p>Dedicated by: Pres. Gordon B. Hinckley</p>
+                        <p>Dedicated by: President Gordon B. Hinckley</p>
                     </div>
                 </div>
                 <figcaption>Porto Alegre Brazil Temple</figcaption>
             </figure>
 
-            <!-- 6 -->
+            <!-- ===== Temple Card 6 ===== -->
             <figure class="temple-card">
                 <div class="card-inner">
                     <div class="card-front">
@@ -139,13 +154,13 @@
                         <h2>João Pessoa Brazil Temple</h2>
                         <p>João Pessoa, Brazil</p>
                         <p>Announced: 24 January 2026</p>
-                        <p>Announced by: Pres. Russell M. Nelson</p>
+                        <p>Announced by: President Russell M. Nelson</p>
                     </div>
                 </div>
                 <figcaption>João Pessoa Brazil Temple</figcaption>
             </figure>
 
-            <!-- 7 -->
+            <!-- ===== Temple Card 7 ===== -->
             <figure class="temple-card">
                 <div class="card-inner">
                     <div class="card-front">
@@ -162,7 +177,7 @@
                 <figcaption>Ribeirão Preto Brazil Temple</figcaption>
             </figure>
 
-            <!-- 8 -->
+            <!-- ===== Temple Card 8 ===== -->
             <figure class="temple-card">
                 <div class="card-inner">
                     <div class="card-front">
@@ -173,13 +188,13 @@
                         <h2>Provo City Center Temple</h2>
                         <p>Provo, Utah</p>
                         <p>Dedication: 20 March 2016</p>
-                        <p>Dedicated by: Pres. Dallin H. Oaks</p>
+                        <p>Dedicated by: President Dallin H. Oaks</p>
                     </div>
                 </div>
                 <figcaption>Provo City Center Temple</figcaption>
             </figure>
 
-            <!-- 9 -->
+            <!-- ===== Temple Card 9 ===== -->
             <figure class="temple-card">
                 <div class="card-inner">
                     <div class="card-front">
@@ -190,7 +205,7 @@
                         <h2>Provo Utah Rock Canyon Temple</h2>
                         <p>Provo, Utah</p>
                         <p>Dedication: 9 February 1972</p>
-                        <p>Dedicated by: Pres. Joseph Fielding Smith</p>
+                        <p>Dedicated by: President Joseph Fielding Smith</p>
                     </div>
                 </div>
                 <figcaption>Provo Utah Rock Canyon Temple</figcaption>
@@ -199,10 +214,12 @@
         </section>
     </main>
 
+    <!-- ================= FOOTER ================= -->
     <footer>
         <p>© <span id="year"></span> Jéssica Seniw | Brazil</p>
         <p>Last Modification: <span id="lastModified"></span></p>
     </footer>
+
 </body>
 
 </html>

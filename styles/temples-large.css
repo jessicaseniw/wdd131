@@ -1,15 +1,22 @@
+/* =====================================================
+   LARGE SCREEN STYLES (TABLET & DESKTOP)
+   Applies when viewport width is 768px or larger
+===================================================== */
 @media (min-width: 768px) {
 
+    /* Hide hamburger menu button on larger screens */
     #menu {
         display: none;
     }
 
+    /* Display navigation horizontally */
     .navigation {
         display: flex;
         flex-direction: row;
         gap: 1.5rem;
     }
 
+    /* Display gallery in three columns on large screens */
     .gallery {
         grid-template-columns: repeat(3, 1fr);
     }
