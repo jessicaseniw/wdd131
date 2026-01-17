@@ -78,6 +78,16 @@ main h1 {
     margin-bottom: 1.5rem;
 }
 
+main h2 {
+    font-family: "Cinzel", serif;
+    font-size: 0.9rem;
+    /* ↓ reduz o tamanho */
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
 /* ---------- GALLERY GRID ---------- */
 .gallery {
     display: grid;
