@@ -1,9 +1,33 @@
 /* GLOBAL */
 * {
     box-sizing: border-box;
-    font-family: "Poiret One", sans-serif;
     margin: 0;
     padding: 0;
+}
+
+/* BODY – TEXT FONT */
+body {
+    font-family: "Libre Baskerville", serif;
+    line-height: 1.7;
+    color: #222;
+}
+
+/* TYPOGRAPHY – ARCHITECTURAL STYLE (TITLES) */
+#course-title,
+main h1,
+.card-title,
+nav a,
+.location-title {
+    font-family: "Cinzel", serif;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+}
+
+/* TEXT BLOCKS */
+.about-content p,
+.location p {
+    line-height: 1.7;
+    font-size: 0.95rem;
 }
 
 /* HEADER */
@@ -31,7 +55,7 @@ nav a {
     color: white;
     padding: 0.75rem;
     text-decoration: none;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 nav a:hover {
@@ -68,7 +92,6 @@ main h1 {
     color: white;
     padding: 0.6rem;
     text-align: center;
-    font-weight: 700;
     border-radius: 6px 6px 0 0;
 }
 
@@ -90,7 +113,6 @@ main h1 {
     margin: 1rem;
     padding-bottom: 0.3rem;
     border-bottom: 2px solid #ccc;
-    font-weight: 700;
     text-align: center;
 }
 
@@ -113,7 +135,6 @@ main h1 {
 
 .resources ul {
     list-style: none;
-    /* remove bullets */
     padding: 1rem;
 }
 
@@ -124,11 +145,9 @@ main h1 {
 .resources a {
     color: #1f4e70;
     text-decoration: none;
-    /* remove underline */
-    font-weight: 500;
+    font-weight: 600;
 }
 
-/* Hover still required by rubric */
 .resources a:hover {
     text-decoration: underline;
 }
