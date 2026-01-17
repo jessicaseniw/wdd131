@@ -64,6 +64,11 @@ main h1 {
     background-color: #1f4e70;
 }
 
+nav {
+    display: flex;
+    flex-direction: column;
+}
+
 /* Navigation links */
 .navigation a {
     color: white;
