@@ -1,0 +1,23 @@
+@media (min-width: 900px) {
+
+    main {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-areas:
+            "data hero weather";
+        align-items: start;
+    }
+
+    .hero {
+        grid-area: hero;
+    }
+
+    .data {
+        grid-area: data;
+    }
+
+    .weather {
+        grid-area: weather;
+    }
+
+}

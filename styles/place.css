@@ -1,0 +1,51 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    text-align: center;
+}
+
+header {
+    background-color: #c81f3f;
+    color: white;
+    padding: 1rem;
+}
+
+.hero img {
+    width: 100%;
+    height: auto;
+}
+
+.data,
+.weather {
+    background: #f4f4f4;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 6px;
+}
+
+h2 {
+    background-color: #2f7f5f;
+    color: white;
+    padding: 0.5rem;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+.weather-icon {
+    font-size: 3rem;
+    margin: 1rem 0;
+}
+
+footer {
+    background-color: #c81f3f;
+    color: white;
+    padding: 1rem;
+    font-size: 0.9rem;
+}

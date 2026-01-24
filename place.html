@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Basic metadata -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Informational page with well-structured content, responsive layout, and clear navigation for a better user experience.">
+    <meta name="author" content="Jéssica Seniw">
+
+    <title>Temple Album | WDD 131</title>
+
+    <!-- Google Fonts: Cinzel for headings, Roboto for body text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS files (mobile-first and large screens) -->
+    <link rel="stylesheet" href="styles/place.css">
+    <link rel="stylesheet" href="styles/place-large.css">
+
+    <!-- JavaScript file -->
+    <script src="scripts/place.js" defer></script>
+</head>
+
+<body>
+
+    <header>
+        <h1>Madagascar</h1>
+    </header>
+
+    <main>
+
+        <!-- HERO IMAGE -->
+        <section class="hero">
+            <picture>
+                <source srcset="images/hero-small.webp" media="(max-width: 600px)">
+                <source srcset="images/hero-medium.webp" media="(max-width: 1024px)">
+                <img src="images/hero-large.webp" alt="Lemurs in Madagascar" width="1200" height="600">
+            </picture>
+        </section>
+
+        <!-- DATA -->
+        <section class="data">
+            <h2>Data</h2>
+            <ul>
+                <li><strong>Area:</strong> 587,041 sq km</li>
+                <li><strong>Population:</strong> 27,691,018</li>
+                <li><strong>Capital:</strong> Antananarivo</li>
+                <li><strong>Languages:</strong> Malagasy, French</li>
+                <li><strong>Currency:</strong> Malagasy Ariary</li>
+                <li><strong>Time Zone:</strong> UTC+3</li>
+                <li><strong>Calling Code:</strong> +261</li>
+                <li><strong>Internet TLD:</strong> .mg</li>
+            </ul>
+        </section>
+
+        <!-- WEATHER -->
+        <section class="weather">
+            <h2>Weather</h2>
+
+            <div class="weather-icon">⛅</div>
+
+            <ul>
+                <li><strong>Temperature:</strong> <span id="temp">10</span> °C</li>
+                <li><strong>Conditions:</strong> Partly Cloudy</li>
+                <li><strong>Wind:</strong> <span id="wind">5</span> km/h</li>
+                <li><strong>Wind Chill:</strong> <span id="chill"></span> °C</li>
+            </ul>
+        </section>
+
+    </main>
+    <!-- ================= FOOTER ================= -->
+    <footer>
+        <p>© <span id="year"></span> Jéssica Seniw | Brazil</p>
+        <p>Last Modification: <span id="lastModified"></span></p>
+    </footer>
+
+</body>
+
+</html>
