@@ -1,17 +1,22 @@
 * {
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
 }
 
 body {
     margin: 0;
     text-align: center;
+    font-family: 'Roboto', sans-serif;
 }
 
 header {
-    background-color: #c81f3f;
+    background-color: #005293;
+    /* Sweden blue */
     color: white;
     padding: 1rem;
+}
+
+header h1 {
+    font-family: 'Cinzel', serif;
 }
 
 .hero img {
@@ -24,13 +29,15 @@ header {
     background: #f4f4f4;
     margin: 1rem;
     padding: 1rem;
-    border-radius: 6px;
+    border-radius: 8px;
 }
 
 h2 {
-    background-color: #2f7f5f;
-    color: white;
+    background-color: #FECB00;
+    /* Sweden yellow */
+    color: #003366;
     padding: 0.5rem;
+    border-radius: 4px;
 }
 
 ul {
@@ -44,7 +51,7 @@ ul {
 }
 
 footer {
-    background-color: #c81f3f;
+    background-color: #005293;
     color: white;
     padding: 1rem;
     font-size: 0.9rem;
