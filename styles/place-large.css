@@ -23,4 +23,16 @@
     .weather {
         grid-area: weather;
     }
+
+    /* Hide SVG icon on large screens */
+    .weather-icon {
+        display: none;
+    }
+
+    /* Add emoji using pseudo-element */
+    .weather h2::after {
+        content: " ⛅";
+        font-size: 1.5rem;
+        margin-left: 0.5rem;
+    }
 }

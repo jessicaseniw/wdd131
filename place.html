@@ -33,11 +33,16 @@
         <!-- HERO IMAGE -->
         <section class="hero">
             <picture>
+                <!-- Mobile first -->
                 <source srcset="images/sweden-small.webp" media="(max-width: 600px)">
+
+                <!-- Tablets / medium screens -->
                 <source srcset="images/sweden-medium.webp" media="(max-width: 1024px)">
+
+                <!-- Desktop fallback -->
                 <img src="images/sweden-large.webp"
                     alt="Swedish lakeside village with red wooden houses, church and Swedish flag" width="1600"
-                    height="900">
+                    height="900" loading="lazy">
             </picture>
         </section>
 
@@ -58,8 +63,14 @@
 
         <!-- WEATHER -->
         <section class="weather">
-            <h2>Weather</h2>
-            <div class="weather-icon">⛅</div>
+            <h2>
+                Weather
+            </h2>
+            <div class="weather-icon">
+                <img src="images/weather.svg" alt="Partly cloudy weather icon" width="64" height="64">
+            </div>
+
+
             <ul>
                 <li><strong>Temperature:</strong> <span id="temp">8</span> °C</li>
                 <li><strong>Conditions:</strong> Partly Cloudy</li>

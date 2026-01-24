@@ -1,16 +1,17 @@
-// Current year
+// ================= FOOTER DATES =================
 document.getElementById("year").textContent = new Date().getFullYear();
-
-// Last modified date
 document.getElementById("lastModified").textContent = document.lastModified;
 
-// Wind Chill Calculation
-const temp = Number(document.getElementById("temp").textContent);
-const wind = Number(document.getElementById("wind").textContent);
-let chill = "N/A";
+// ================= STATIC WEATHER VALUES =================
+const temperature = 8;   // °C
+const windSpeed = 12;    // km/h
 
-if (temp <= 10 && wind > 4.8) {
-    chill = (
+document.getElementById("temp").textContent = temperature;
+document.getElementById("wind").textContent = windSpeed;
+
+// ================= WIND CHILL FUNCTION =================
+function calculateWindChill(temp, wind) {
+    return (
         13.12 +
         0.6215 * temp -
         11.37 * Math.pow(wind, 0.16) +
@@ -18,4 +19,11 @@ if (temp <= 10 && wind > 4.8) {
     ).toFixed(1);
 }
 
-document.getElementById("chill").textContent = chill;
+// ================= WIND CHILL LOGIC =================
+let windChill = "N/A";
+
+if (temperature <= 10 && windSpeed > 4.8) {
+    windChill = calculateWindChill(temperature, windSpeed);
+}
+
+document.getElementById("chill").textContent = windChill;
