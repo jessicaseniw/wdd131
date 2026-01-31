@@ -1,0 +1,38 @@
+@media (min-width: 900px) {
+
+    main {
+        max-width: 1200px;
+        margin: auto;
+
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-areas:
+            "data hero weather";
+        gap: 1rem;
+        align-items: start;
+    }
+
+    .hero {
+        grid-area: hero;
+    }
+
+    .data {
+        grid-area: data;
+    }
+
+    .weather {
+        grid-area: weather;
+    }
+
+    /* Hide SVG icon on large screens */
+    .weather-icon {
+        display: none;
+    }
+
+    /* Add emoji using pseudo-element */
+    .weather h2::after {
+        content: " ⛅";
+        font-size: 1.5rem;
+        margin-left: 0.5rem;
+    }
+}
