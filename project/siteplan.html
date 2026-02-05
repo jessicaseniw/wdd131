@@ -3,11 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Site Plan – Travel Planner</title>
+    <title>Site Plan – Wanderly</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Travel Planner is a platform that helps users search destinations, explore accommodations, and organize trips in one place">
-    <meta name="author" content="Jéssica Seniw"
+        content="Wanderly is a platform that helps users search destinations, explore accommodations, and organize trips in one place">
+    <meta name="author" content="Jéssica Seniw">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,13 +15,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto&display=swap"
         rel="stylesheet">
 
+    <!-- Internal CSS -->
     <style>
+        /* Root variables for the color scheme */
         :root {
             --primary-color: #1e88e5;
             --secondary-color: #e3f2fd;
             --accent-color: #1565c0;
         }
 
+        /* Base styles for body */
         body {
             font-family: 'Roboto', sans-serif;
             background-color: var(--secondary-color);
@@ -30,6 +33,7 @@
             padding: 1.5rem;
         }
 
+        /* Headings styles */
         h1,
         h2,
         h3 {
@@ -37,10 +41,12 @@
             color: var(--primary-color);
         }
 
+        /* Sections spacing */
         section {
             margin-bottom: 2.5rem;
         }
 
+        /* Color box styles for color schema display */
         .color-box {
             display: inline-block;
             width: 120px;
@@ -50,6 +56,7 @@
             vertical-align: middle;
         }
 
+        /* Wireframe box styles */
         .wireframe {
             border: 2px dashed var(--accent-color);
             background-color: #fff;
@@ -61,14 +68,17 @@
 
 <body>
 
+    <!-- Header Section -->
     <header>
         <h1>Website Planning Document</h1>
     </header>
 
+    <!-- Site Name Section -->
     <section>
         <h2>Site Name</h2>
         <p><strong>Wanderly</strong></p>
         <p>
+            <!-- Explanation of why the site name was chosen -->
             The name “Wanderly” was chosen because it reflects the idea of exploration
             and travel, representing a platform that helps users plan and organize
             meaningful trips.
@@ -76,9 +86,11 @@
         <p><em>Optional domain availability:</em> wanderly.com</p>
     </section>
 
+    <!-- Site Purpose Section -->
     <section>
         <h2>Site Purpose</h2>
         <p>
+            <!-- Description of what the site provides -->
             The purpose of this website is to provide a travel booking and trip planning platform where users
             can search for destinations, view available accommodations, and save selected trips.
             The site will use JavaScript to dynamically display content, handle form submissions,
@@ -86,39 +98,65 @@
         </p>
     </section>
 
+    <!-- Scenarios Section -->
     <section>
         <h2>Scenarios</h2>
         <ul>
+            <!-- Questions representing the target audience -->
             <li>What accommodations are available for my selected destination?</li>
             <li>How can I save and manage my planned trips for later?</li>
         </ul>
     </section>
 
+    <!-- Color Scheme Section -->
     <section>
-        <h2>Color Schema</h2>
+        <h2>Color Scheme</h2>
         <p>
-            <span class="color-box" style="background-color:#1e88e5;"></span>
-            <strong>#1e88e5</strong> – Primary color used for headings, buttons, and navigation.
+            <!-- Primary color -->
+            <span class="color-box" style="background-color:#1f4e70;"></span>
+            <strong>#1f4e70</strong> – Primary color used for headings, navigation, and main buttons.
         </p>
         <p>
-            <span class="color-box" style="background-color:#e3f2fd;"></span>
-            <strong>#e3f2fd</strong> – Background color used throughout the site.
+            <!-- Secondary color -->
+            <span class="color-box" style="background-color:#f0f4f8;"></span>
+            <strong>#f0f4f8</strong> – Background color used for pages, sections, and cards.
         </p>
         <p>
-            <span class="color-box" style="background-color:#1565c0;"></span>
-            <strong>#1565c0</strong> – Accent color used for highlights and interactive elements.
+            <!-- Accent color -->
+            <span class="color-box" style="background-color:#f29c54;"></span>
+            <strong>#f29c54</strong> – Accent color used for highlights, interactive elements, and call-to-action
+            buttons.
+        </p>
+        <p>
+            <!-- Text color -->
+            <span class="color-box" style="background-color:#333333;"></span>
+            <strong>#333333</strong> – Main text color for readability across the site.
+        </p>
+        <p>
+            <!-- Complementary color -->
+            <span class="color-box" style="background-color:#4a90a8;"></span>
+            <strong>#4a90a8</strong> – Complementary color used for hover states, borders, and cards.
         </p>
     </section>
 
+    <!-- Typography Section -->
     <section>
         <h2>Typography</h2>
-        <p><strong>Poppins</strong> – Used for headings and navigation.</p>
-        <p><strong>Roboto</strong> – Used for body text and form content.</p>
+        <p>
+            <!-- Font for headings -->
+            <strong>Poppins</strong> – Used for headings and navigation.
+        </p>
+        <p>
+            <!-- Font for body text -->
+            <strong>Roboto</strong> – Used for body text and form content.
+        </p>
     </section>
 
+    <!-- Wireframes Section -->
     <section>
         <h2>Wireframes</h2>
 
+        <!-- Mobile view wireframe -->
         <h3>Mobile View</h3>
         <div class="wireframe">
             <p>[ Logo ]</p>
@@ -128,6 +166,7 @@
             <p>[ Footer ]</p>
         </div>
 
+        <!-- Desktop view wireframe -->
         <h3>Desktop View</h3>
         <div class="wireframe">
             <p>[ Logo ] [ Navigation Menu ]</p>
