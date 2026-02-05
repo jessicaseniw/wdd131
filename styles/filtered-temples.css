@@ -1,0 +1,123 @@
+/* ---------- RESET ---------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ---------- BODY ---------- */
+body {
+    font-family: "Roboto", sans-serif;
+    background-color: #ffffff;
+    color: #222;
+}
+
+/* ---------- HEADER ---------- */
+header {
+    background-color: #1f4e70;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#page-title {
+    font-family: "Cinzel", serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.08em;
+}
+
+/* ---------- MENU BUTTON ---------- */
+#menu {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+}
+
+/* ---------- NAV ---------- */
+nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.navigation {
+    display: none;
+    background-color: #1f4e70;
+}
+
+.navigation.open {
+    display: flex;
+}
+
+.navigation a {
+    color: white;
+    text-decoration: none;
+    padding: 0.75rem;
+    text-align: center;
+    font-family: "Cinzel", serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.navigation a:hover {
+    background-color: #163b55;
+    text-decoration: underline;
+}
+
+/* ---------- MAIN ---------- */
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+main h1 {
+    font-family: "Cinzel", serif;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.08em;
+}
+
+/* ---------- GALLERY ---------- */
+.gallery {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+/* ---------- CARD ---------- */
+.temple-card {
+    text-align: center;
+}
+
+.card-inner {
+    position: relative;
+    height: 250px;
+}
+
+.card-front img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+figcaption {
+    margin-top: 0.5rem;
+    font-family: "Cinzel", serif;
+    font-size: 0.85rem;
+    color: #1f4e70;
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+    background-color: #1f4e70;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    font-size: 0.85rem;
+}
