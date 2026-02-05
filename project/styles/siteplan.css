@@ -34,6 +34,26 @@ section {
     vertical-align: middle;
 }
 
+.color-box.primary {
+    background-color: var(--primary-color);
+}
+
+.color-box.secondary {
+    background-color: var(--secondary-color);
+}
+
+.color-box.accent {
+    background-color: var(--accent-color);
+}
+
+.color-box.text {
+    background-color: var(--text-color);
+}
+
+.color-box.complementary {
+    background-color: var(--complementary-color);
+}
+
 /* Wireframe box styles */
 .wireframe {
     border: 2px dashed var(--accent-color);

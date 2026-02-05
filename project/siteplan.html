@@ -15,55 +15,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto&display=swap"
         rel="stylesheet">
 
-    <!-- Internal CSS -->
-    <style>
-        /* Root variables for the color scheme */
-        :root {
-            --primary-color: #1e88e5;
-            --secondary-color: #e3f2fd;
-            --accent-color: #1565c0;
-        }
-
-        /* Base styles for body */
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--secondary-color);
-            color: #333;
-            margin: 0;
-            padding: 1.5rem;
-        }
-
-        /* Headings styles */
-        h1,
-        h2,
-        h3 {
-            font-family: 'Poppins', sans-serif;
-            color: var(--primary-color);
-        }
-
-        /* Sections spacing */
-        section {
-            margin-bottom: 2.5rem;
-        }
-
-        /* Color box styles for color schema display */
-        .color-box {
-            display: inline-block;
-            width: 120px;
-            height: 40px;
-            margin-right: 1rem;
-            border: 1px solid #000;
-            vertical-align: middle;
-        }
-
-        /* Wireframe box styles */
-        .wireframe {
-            border: 2px dashed var(--accent-color);
-            background-color: #fff;
-            padding: 1rem;
-            margin-top: 1rem;
-        }
-    </style>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="/project/styles/siteplan.css">
 </head>
 
 <body>
@@ -112,29 +65,24 @@
     <section>
         <h2>Color Scheme</h2>
         <p>
-            <!-- Primary color -->
-            <span class="color-box" style="background-color:#1f4e70;"></span>
+            <span class="color-box primary"></span>
             <strong>#1f4e70</strong> – Primary color used for headings, navigation, and main buttons.
         </p>
         <p>
-            <!-- Secondary color -->
-            <span class="color-box" style="background-color:#f0f4f8;"></span>
+            <span class="color-box secondary"></span>
             <strong>#f0f4f8</strong> – Background color used for pages, sections, and cards.
         </p>
         <p>
-            <!-- Accent color -->
-            <span class="color-box" style="background-color:#f29c54;"></span>
+            <span class="color-box accent"></span>
             <strong>#f29c54</strong> – Accent color used for highlights, interactive elements, and call-to-action
             buttons.
         </p>
         <p>
-            <!-- Text color -->
-            <span class="color-box" style="background-color:#333333;"></span>
+            <span class="color-box text"></span>
             <strong>#333333</strong> – Main text color for readability across the site.
         </p>
         <p>
-            <!-- Complementary color -->
-            <span class="color-box" style="background-color:#4a90a8;"></span>
+            <span class="color-box complementary"></span>
             <strong>#4a90a8</strong> – Complementary color used for hover states, borders, and cards.
         </p>
     </section>
@@ -143,11 +91,9 @@
     <section>
         <h2>Typography</h2>
         <p>
-            <!-- Font for headings -->
             <strong>Poppins</strong> – Used for headings and navigation.
         </p>
         <p>
-            <!-- Font for body text -->
             <strong>Roboto</strong> – Used for body text and form content.
         </p>
     </section>
