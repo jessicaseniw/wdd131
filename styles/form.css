@@ -1,0 +1,232 @@
+/* =========================================================
+   GLOBAL STYLES (Used by both pages)
+   ========================================================= */
+
+:root {
+    --primary: #1f4e70;
+    --accent: #61a5c2;
+    --background: #f1f5f8;
+    --surface: #ffffff;
+    --text: #222;
+    --border: #cfd8dc;
+    --focus: #ffb703;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+}
+
+header,
+footer {
+    background-color: var(--primary);
+    color: #fff;
+    text-align: center;
+    padding: 1.25rem;
+}
+
+main {
+    flex: 1;
+    padding: 2rem 1rem;
+}
+
+.required {
+    color: #c62828;
+}
+
+label {
+    font-weight: 600;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 0.65rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+}
+
+fieldset {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem;
+}
+
+/* =========================================================
+   ============ FORM PAGE ============
+   ========================================================= */
+
+/* Form container */
+form {
+    max-width: 650px;
+    margin: 0 auto;
+    background-color: var(--surface);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* Form instructions box */
+.form-info {
+    max-width: 650px;
+    margin: 0 auto 1.5rem;
+    padding: 1rem 1.25rem;
+    background-color: #e9f1f7;
+    border-left: 4px solid var(--primary);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.form-info p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+/* Audio accessibility button */
+.audio-btn {
+    align-self: flex-start;
+    background-color: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 0.4rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.audio-btn:hover,
+.audio-btn:focus {
+    background-color: var(--primary);
+    color: #fff;
+}
+
+/* Useful Features */
+.features {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.features .helper-text {
+    font-size: 0.85rem;
+    color: #555;
+    margin: 0 0 0.5rem 0;
+}
+
+/* Checkbox alignment */
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.checkbox-item input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+}
+
+/* Rating stars */
+.rating .stars {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    /* keeps stars on the left */
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    font-size: 1.8rem;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.rating input:checked~label,
+.rating label:hover,
+.rating label:hover~label {
+    color: #ffb703;
+}
+
+/* Submit button */
+input[type="submit"] {
+    background-color: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: var(--primary);
+}
+
+/* =========================================================
+   ============ CONFIRMATION PAGE ============
+   ========================================================= */
+
+/* Page layout (Google Forms style) */
+.confirmation-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+/* Confirmation card */
+.confirmation {
+    background-color: var(--surface);
+    padding: 2.5rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Main confirmation message */
+.confirmation h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--primary);
+}
+
+/* Secondary info */
+.confirmation .review-info {
+    font-size: 0.9rem;
+    color: #555;
+}
