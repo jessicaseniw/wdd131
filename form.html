@@ -29,7 +29,8 @@
 
             <!-- Instructions + Accessibility -->
             <section class="form-info" aria-labelledby="form-instructions">
-                <button type="button" class="audio-btn" id="audioHelp">
+                <button type="button" class="audio-btn" id="audioHelp" aria-label="Listen to form instructions"
+                    aria-pressed="false">
                     🔊 Listen to form instructions
                 </button>
 
@@ -41,29 +42,30 @@
 
             <!-- Product -->
             <label for="product">Product Name <span class="required">*</span></label>
-            <select id="product" name="product" required aria-required="true">
+            <select id="product" name="product" required aria-required="true" aria-describedby="productHelp">
                 <option value="" disabled selected>Select a Product ...</option>
             </select>
+            <p id="productHelp" class="helper-text">Select the product you want to review.</p>
 
             <!-- Rating -->
-            <fieldset class="rating" aria-required="true">
-                <legend>Overall Rating <span class="required">*</span></legend>
+            <fieldset class="rating" role="radiogroup" aria-required="true" aria-labelledby="ratingLegend">
+                <legend id="ratingLegend">Overall Rating <span class="required">*</span></legend>
 
                 <div class="stars">
-                    <input type="radio" id="star5" name="rating" value="5">
-                    <label for="star5" aria-label="5 stars">★</label>
+                    <input type="radio" id="star5" name="rating" value="5" role="radio" aria-label="5 stars">
+                    <label for="star5">★</label>
 
-                    <input type="radio" id="star4" name="rating" value="4">
-                    <label for="star4" aria-label="4 stars">★</label>
+                    <input type="radio" id="star4" name="rating" value="4" role="radio" aria-label="4 stars">
+                    <label for="star4">★</label>
 
-                    <input type="radio" id="star3" name="rating" value="3">
-                    <label for="star3" aria-label="3 stars">★</label>
+                    <input type="radio" id="star3" name="rating" value="3" role="radio" aria-label="3 stars">
+                    <label for="star3">★</label>
 
-                    <input type="radio" id="star2" name="rating" value="2">
-                    <label for="star2" aria-label="2 stars">★</label>
+                    <input type="radio" id="star2" name="rating" value="2" role="radio" aria-label="2 stars">
+                    <label for="star2">★</label>
 
-                    <input type="radio" id="star1" name="rating" value="1" required>
-                    <label for="star1" aria-label="1 star">★</label>
+                    <input type="radio" id="star1" name="rating" value="1" role="radio" required aria-label="1 star">
+                    <label for="star1">★</label>
                 </div>
             </fieldset>
 
@@ -99,11 +101,14 @@
 
             <!-- Review -->
             <label for="review">Written Review (optional)</label>
-            <textarea id="review" name="review" rows="5"></textarea>
+            <textarea id="review" name="review" rows="5" aria-describedby="reviewHelp"></textarea>
+            <p id="reviewHelp" class="helper-text">Optional: Share your experience in words.</p>
 
             <!-- Username -->
             <label for="username">Your Name <span class="required">*</span></label>
-            <input type="text" id="username" name="username" required aria-required="true">
+            <input type="text" id="username" name="username" required aria-required="true"
+                aria-describedby="usernameHelp">
+            <p id="usernameHelp" class="helper-text">Enter your full name.</p>
 
             <input type="submit" value="Submit Review">
         </form>

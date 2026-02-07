@@ -65,7 +65,8 @@ input:focus,
 select:focus,
 textarea:focus {
     outline: 2px solid var(--focus);
-    outline-offset: 2px;
+    outline-offset: 4px;
+    /* slightly increased for visibility */
 }
 
 fieldset {
@@ -160,7 +161,6 @@ form {
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
-    /* keeps stars on the left */
 }
 
 .rating input {
@@ -199,7 +199,6 @@ input[type="submit"]:hover {
    ============ CONFIRMATION PAGE ============
    ========================================================= */
 
-/* Page layout (Google Forms style) */
 .confirmation-page {
     display: flex;
     justify-content: center;
@@ -207,7 +206,6 @@ input[type="submit"]:hover {
     flex: 1;
 }
 
-/* Confirmation card */
 .confirmation {
     background-color: var(--surface);
     padding: 2.5rem 2rem;
@@ -218,14 +216,12 @@ input[type="submit"]:hover {
     text-align: center;
 }
 
-/* Main confirmation message */
 .confirmation h2 {
     font-size: 1.5rem;
     margin-bottom: 0.75rem;
     color: var(--primary);
 }
 
-/* Secondary info */
 .confirmation .review-info {
     font-size: 0.9rem;
     color: #555;

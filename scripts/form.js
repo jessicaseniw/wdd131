@@ -11,7 +11,6 @@ const products = [
 
 /* Populate product dropdown */
 const select = document.querySelector("#product");
-
 products.forEach(product => {
     const option = document.createElement("option");
     option.value = product.id;
@@ -32,5 +31,8 @@ if (audioButton && "speechSynthesis" in window) {
         );
         message.lang = "en-US";
         window.speechSynthesis.speak(message);
+
+        audioButton.setAttribute("aria-pressed", "true");
+        setTimeout(() => audioButton.setAttribute("aria-pressed", "false"), 5000);
     });
 }
