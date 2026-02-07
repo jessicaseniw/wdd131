@@ -7,9 +7,13 @@
     --accent: #61a5c2;
     --background: #f1f5f8;
     --surface: #ffffff;
-    --text: #222;
+    --text: #222222;
     --border: #cfd8dc;
     --focus: #ffb703;
+    --helper-text: #555555;
+    --error: #c62828;
+    --star-color: #ccc;
+    --star-hover: #ffb703;
 }
 
 * {
@@ -33,7 +37,7 @@ body {
 header,
 footer {
     background-color: var(--primary);
-    color: #fff;
+    color: var(--surface);
     text-align: center;
     padding: 1.25rem;
 }
@@ -44,7 +48,7 @@ main {
 }
 
 .required {
-    color: #c62828;
+    color: var(--error);
 }
 
 label {
@@ -74,7 +78,10 @@ fieldset {
     padding: 1rem;
 }
 
-/* FORM STYLES */
+/* =========================================================
+   FORM STYLES
+   ========================================================= */
+
 form {
     max-width: 650px;
     margin: 0 auto;
@@ -91,7 +98,7 @@ form {
     max-width: 650px;
     margin: 0 auto 1.5rem;
     padding: 1rem 1.25rem;
-    background-color: #e9f1f7;
+    background-color: var(--accent);
     border-left: 4px solid var(--primary);
     border-radius: 6px;
     display: flex;
@@ -102,7 +109,7 @@ form {
 .form-info p {
     margin: 0;
     font-size: 0.95rem;
-    color: #333;
+    color: var(--text);
 }
 
 .audio-btn {
@@ -119,9 +126,10 @@ form {
 .audio-btn:hover,
 .audio-btn:focus {
     background-color: var(--primary);
-    color: #fff;
+    color: var(--surface);
 }
 
+/* Useful Features */
 .features {
     display: flex;
     flex-direction: column;
@@ -130,21 +138,8 @@ form {
 
 .features .helper-text {
     font-size: 0.85rem;
-    color: #555;
+    color: var(--helper-text);
     margin: 0 0 0.5rem 0;
-}
-
-.checkbox-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 400;
-    cursor: pointer;
-}
-
-.checkbox-item input[type="checkbox"] {
-    width: auto;
-    margin: 0;
 }
 
 /* Rating stars */
@@ -160,19 +155,20 @@ form {
 
 .rating label {
     font-size: 1.8rem;
-    color: #ccc;
+    color: var(--star-color);
     cursor: pointer;
 }
 
 .rating input:checked~label,
 .rating label:hover,
 .rating label:hover~label {
-    color: #ffb703;
+    color: var(--star-hover);
 }
 
+/* Submit button */
 input[type="submit"] {
     background-color: var(--accent);
-    color: #fff;
+    color: var(--surface);
     border: none;
     padding: 0.8rem;
     font-size: 1.1rem;
@@ -185,7 +181,10 @@ input[type="submit"]:hover {
     background-color: var(--primary);
 }
 
-/* CONFIRMATION PAGE */
+/* =========================================================
+   CONFIRMATION PAGE
+   ========================================================= */
+
 .confirmation-page {
     display: flex;
     justify-content: center;
@@ -211,10 +210,10 @@ input[type="submit"]:hover {
 
 .confirmation .review-info {
     font-size: 0.9rem;
-    color: #555;
+    color: var(--helper-text);
 }
 
-/* sr-only helper */
+/* Screen reader only */
 .sr-only {
     position: absolute;
     width: 1px;
@@ -226,7 +225,9 @@ input[type="submit"]:hover {
     border: 0;
 }
 
-/* ======================= MEDIA QUERIES ======================= */
+/* =========================================================
+   MEDIA QUERIES
+   ========================================================= */
 @media (max-width: 600px) {
     form {
         padding: 1rem;
