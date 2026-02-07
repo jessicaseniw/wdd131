@@ -1,0 +1,63 @@
+:root {
+    --primary-color: #1f4e70;
+    --secondary-color: #f0f4f8;
+    --accent-color: #f29c54;
+    --text-color: #333333;
+    --complementary-color: #4a90a8;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 1.5rem;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Poppins', sans-serif;
+    color: var(--primary-color);
+}
+
+section {
+    margin-bottom: 2.5rem;
+}
+
+.color-box {
+    display: inline-block;
+    width: 120px;
+    height: 40px;
+    margin-right: 1rem;
+    border: 1px solid #000;
+    vertical-align: middle;
+}
+
+.color-box.primary {
+    background-color: var(--primary-color);
+}
+
+.color-box.secondary {
+    background-color: var(--secondary-color);
+}
+
+.color-box.accent {
+    background-color: var(--accent-color);
+}
+
+.color-box.text {
+    background-color: var(--text-color);
+}
+
+.color-box.complementary {
+    background-color: var(--complementary-color);
+}
+
+/* Wireframe box styles */
+.wireframe {
+    border: 2px dashed var(--accent-color);
+    background-color: #fff;
+    padding: 1rem;
+    margin-top: 1rem;
+}
