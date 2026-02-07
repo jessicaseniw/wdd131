@@ -12,7 +12,7 @@ if (counter) {
 const params = new URLSearchParams(window.location.search);
 const userName = params.get("username");
 
-// ========== CONFIRMATION MESSAGE (NO REPETITION) ==========
+// ========== CONFIRMATION MESSAGE ==========
 const message = document.querySelector("#confirmationMessage");
 
 if (message) {

@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-    <!-- ============ METADATA ============ -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Confirmation page after submitting a product review.">
@@ -10,36 +9,28 @@
 
     <title>Review Submitted</title>
 
-    <!-- ============ STYLES & SCRIPTS ============ -->
     <link rel="stylesheet" href="styles/form.css">
     <script src="scripts/review.js" defer></script>
 </head>
 
 <body>
 
-    <!-- ============ HEADER ============ -->
     <header>
         <h1>Thank You!</h1>
     </header>
 
-    <!-- ============ CONFIRMATION PAGE ============ -->
     <main class="confirmation-page">
         <section class="confirmation" aria-live="polite">
-
-            <!-- Dynamic confirmation message with user's name -->
             <h2 id="confirmationMessage"></h2>
 
-            <!-- Displays how many reviews THIS user has submitted on this device -->
             <p class="review-info">
                 You have submitted
                 <strong><span id="reviewCount"></span></strong>
                 reviews on this device.
             </p>
-
         </section>
     </main>
 
-    <!-- ============ FOOTER ============ -->
     <footer>
         <p>© <span id="year"></span> Jessica Seniw | Brazil</p>
         <p class="modified">
@@ -47,7 +38,6 @@
         </p>
     </footer>
 
-    <!-- ============ FOOTER SCRIPT ============ -->
     <script>
         document.getElementById("year").textContent = new Date().getFullYear();
         document.getElementById("lastModified").textContent = document.lastModified;

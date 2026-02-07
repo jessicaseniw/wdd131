@@ -25,53 +25,53 @@
 
     <!-- ============ FORM PAGE CONTENT ============ -->
     <main>
-        <form method="get" action="review.html" aria-describedby="required-info">
+        <form method="get" action="review.html">
 
             <!-- Instructions + Accessibility -->
-            <section class="form-info" aria-labelledby="form-instructions">
+            <section class="form-info">
+                <h2 class="sr-only">Form Instructions</h2>
                 <button type="button" class="audio-btn" id="audioHelp" aria-label="Listen to form instructions"
                     aria-pressed="false">
                     🔊 Listen to form instructions
                 </button>
 
                 <p id="form-instructions">
-                    All fields are required except the written review.
-                    Use the tab key to navigate through the form.
+                    All fields are required except the written review. Use the tab key to navigate through the form.
                 </p>
             </section>
 
             <!-- Product -->
             <label for="product">Product Name <span class="required">*</span></label>
-            <select id="product" name="product" required aria-required="true" aria-describedby="productHelp">
+            <select id="product" name="product" required aria-describedby="productHelp">
                 <option value="" disabled selected>Select a Product ...</option>
             </select>
             <p id="productHelp" class="helper-text">Select the product you want to review.</p>
 
             <!-- Rating -->
-            <fieldset class="rating" role="radiogroup" aria-required="true" aria-labelledby="ratingLegend">
-                <legend id="ratingLegend">Overall Rating <span class="required">*</span></legend>
+            <fieldset class="rating">
+                <legend>Overall Rating <span class="required">*</span></legend>
 
                 <div class="stars">
-                    <input type="radio" id="star5" name="rating" value="5" role="radio" aria-label="5 stars">
+                    <input type="radio" id="star5" name="rating" value="5" aria-label="5 stars">
                     <label for="star5">★</label>
 
-                    <input type="radio" id="star4" name="rating" value="4" role="radio" aria-label="4 stars">
+                    <input type="radio" id="star4" name="rating" value="4" aria-label="4 stars">
                     <label for="star4">★</label>
 
-                    <input type="radio" id="star3" name="rating" value="3" role="radio" aria-label="3 stars">
+                    <input type="radio" id="star3" name="rating" value="3" aria-label="3 stars">
                     <label for="star3">★</label>
 
-                    <input type="radio" id="star2" name="rating" value="2" role="radio" aria-label="2 stars">
+                    <input type="radio" id="star2" name="rating" value="2" aria-label="2 stars">
                     <label for="star2">★</label>
 
-                    <input type="radio" id="star1" name="rating" value="1" role="radio" required aria-label="1 star">
+                    <input type="radio" id="star1" name="rating" value="1" required aria-label="1 star">
                     <label for="star1">★</label>
                 </div>
             </fieldset>
 
             <!-- Installation Date -->
             <label for="installDate">Date of Installation <span class="required">*</span></label>
-            <input type="date" id="installDate" name="installDate" required aria-required="true">
+            <input type="date" id="installDate" name="installDate" required>
 
             <!-- Useful Features -->
             <fieldset class="features">
@@ -106,8 +106,7 @@
 
             <!-- Username -->
             <label for="username">Your Name <span class="required">*</span></label>
-            <input type="text" id="username" name="username" required aria-required="true"
-                aria-describedby="usernameHelp">
+            <input type="text" id="username" name="username" required aria-describedby="usernameHelp">
             <p id="usernameHelp" class="helper-text">Enter your full name.</p>
 
             <input type="submit" value="Submit Review">
