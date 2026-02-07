@@ -20,7 +20,6 @@ products.forEach(product => {
 
 /* Accessibility: Audio instructions */
 const audioButton = document.querySelector("#audioHelp");
-
 if (audioButton && "speechSynthesis" in window) {
     audioButton.addEventListener("click", () => {
         const message = new SpeechSynthesisUtterance(
@@ -36,3 +35,12 @@ if (audioButton && "speechSynthesis" in window) {
         setTimeout(() => audioButton.setAttribute("aria-pressed", "false"), 5000);
     });
 }
+
+/* Footer dates (moved from inline) */
+function updateFooterDates() {
+    const yearEl = document.getElementById("year");
+    const lastModEl = document.getElementById("lastModified");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+    if (lastModEl) lastModEl.textContent = document.lastModified;
+}
+document.addEventListener("DOMContentLoaded", updateFooterDates);

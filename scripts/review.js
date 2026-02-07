@@ -20,3 +20,12 @@ if (message) {
         ? `${userName}, your product review has been successfully submitted.`
         : "Your product review has been successfully submitted.";
 }
+
+/* Footer dates */
+function updateFooterDates() {
+    const yearEl = document.getElementById("year");
+    const lastModEl = document.getElementById("lastModified");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+    if (lastModEl) lastModEl.textContent = document.lastModified;
+}
+document.addEventListener("DOMContentLoaded", updateFooterDates);

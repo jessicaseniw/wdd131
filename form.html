@@ -52,16 +52,16 @@
                 <legend>Overall Rating <span class="required">*</span></legend>
 
                 <div class="stars">
-                    <input type="radio" id="star5" name="rating" value="5" aria-label="5 stars">
+                    <input type="radio" id="star5" name="rating" value="5" required aria-label="5 stars">
                     <label for="star5">★</label>
 
-                    <input type="radio" id="star4" name="rating" value="4" aria-label="4 stars">
+                    <input type="radio" id="star4" name="rating" value="4" required aria-label="4 stars">
                     <label for="star4">★</label>
 
-                    <input type="radio" id="star3" name="rating" value="3" aria-label="3 stars">
+                    <input type="radio" id="star3" name="rating" value="3" required aria-label="3 stars">
                     <label for="star3">★</label>
 
-                    <input type="radio" id="star2" name="rating" value="2" aria-label="2 stars">
+                    <input type="radio" id="star2" name="rating" value="2" required aria-label="2 stars">
                     <label for="star2">★</label>
 
                     <input type="radio" id="star1" name="rating" value="1" required aria-label="1 star">
@@ -78,25 +78,17 @@
                 <legend>Useful Features <span class="required">*</span></legend>
                 <p class="helper-text">You may select as many as apply.</p>
 
-                <label class="checkbox-item">
-                    <input type="checkbox" name="features" value="durability" required>
-                    Durability
-                </label>
+                <input type="checkbox" id="featureDurability" name="features" value="durability" required>
+                <label for="featureDurability">Durability</label>
 
-                <label class="checkbox-item">
-                    <input type="checkbox" name="features" value="easeOfUse">
-                    Ease of Use
-                </label>
+                <input type="checkbox" id="featureEase" name="features" value="easeOfUse">
+                <label for="featureEase">Ease of Use</label>
 
-                <label class="checkbox-item">
-                    <input type="checkbox" name="features" value="performance">
-                    Performance
-                </label>
+                <input type="checkbox" id="featurePerformance" name="features" value="performance">
+                <label for="featurePerformance">Performance</label>
 
-                <label class="checkbox-item">
-                    <input type="checkbox" name="features" value="design">
-                    Design
-                </label>
+                <input type="checkbox" id="featureDesign" name="features" value="design">
+                <label for="featureDesign">Design</label>
             </fieldset>
 
             <!-- Review -->
@@ -118,11 +110,6 @@
         <p>© <span id="year"></span> Jessica Seniw | Brazil</p>
         <p class="modified">Last Modification: <span id="lastModified"></span></p>
     </footer>
-
-    <script>
-        document.getElementById("year").textContent = new Date().getFullYear();
-        document.getElementById("lastModified").textContent = document.lastModified;
-    </script>
 
 </body>
 

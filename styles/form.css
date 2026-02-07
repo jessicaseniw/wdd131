@@ -225,3 +225,14 @@ input[type="submit"]:hover {
     clip: rect(0, 0, 0, 0);
     border: 0;
 }
+
+/* ======================= MEDIA QUERIES ======================= */
+@media (max-width: 600px) {
+    form {
+        padding: 1rem;
+    }
+
+    .stars label {
+        font-size: 1.5rem;
+    }
+}
