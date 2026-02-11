@@ -1,0 +1,23 @@
+@media (min-width: 900px) {
+
+    main {
+        padding: 40px 60px;
+    }
+
+    .hero {
+        padding: 80px 20px;
+    }
+
+    .hero h2 {
+        font-size: 32px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 20px;
+    }
+
+    .card img {
+        height: 160px;
+    }
+}
