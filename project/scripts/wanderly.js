@@ -122,7 +122,7 @@ const destinations = {
         { name: 'Rio de Janeiro/RJ', image: 'images/rio-de-janeiro.avif' },
         { name: 'São Paulo/SP', image: 'images/sao-paulo.avif' },
         { name: 'Salvador/BA', image: 'images/salvador.avif' },
-        { name: 'Florianópolis/SC', image: 'images/florianopolis.avif' },
+        { name: 'Florianópolis/SC', image: 'images/florianopolis1.avif' },
         { name: 'Gramado/RS', image: 'images/gramado.avif' },
         { name: 'Foz do Iguaçu/PR', image: 'images/foz-do-iguacu.avif' },
         { name: 'Natal/RN', image: 'images/natal.avif' },

@@ -76,7 +76,7 @@ header {
 /* =========================================
    TITLES
 ========================================= */
-/* H2 - main sections */
+/* H2 - principais seções */
 h2 {
     font-size: 2rem;
     font-weight: 700;
@@ -87,7 +87,7 @@ h2 {
     letter-spacing: 0.5px;
 }
 
-/* Decorative line below H2 */
+/* Adicionando linha decorativa abaixo do H2 */
 h2::after {
     content: "";
     display: block;
@@ -98,7 +98,7 @@ h2::after {
     border-radius: 2px;
 }
 
-/* H3 - subtitles or card titles */
+/* H3 - subtítulos ou títulos de card */
 h3 {
     font-size: 1.8rem;
     font-weight: 600;
@@ -109,7 +109,7 @@ h3 {
     letter-spacing: 0.3px;
 }
 
-/* Decorative line below H3 */
+/* Linha decorativa abaixo do H3 */
 h3::after {
     content: "";
     display: block;
@@ -120,7 +120,6 @@ h3::after {
     border-radius: 2px;
 }
 
-/* Trip summary container */
 #trip-summary {
     max-width: 1200px;
     margin: 2rem auto;
@@ -178,7 +177,7 @@ h3::after {
 }
 
 /* =========================================
-   COMPACT HERO
+   HERO COMPACTO
 ========================================= */
 .hero {
     width: 100%;
@@ -345,6 +344,7 @@ h3::after {
 .card {
     display: flex;
     flex-direction: column;
+    align-items: center;
     background-color: #fff;
     border-radius: 16px;
     overflow: hidden;
@@ -354,9 +354,13 @@ h3::after {
 }
 
 .card img {
-    width: 100%;
+    width: auto;
+    max-width: 100%;
     height: 210px;
     object-fit: cover;
+    border-radius: 12px;
+    display: block;
+    margin: 0 auto 0.5rem;
 }
 
 .card h3 {
@@ -418,21 +422,22 @@ h3::after {
     background-color: #e5943f;
 }
 
-/* Flex layout for trip-summary side by side */
+/* Layout flex para trip-summary lado a lado */
 #trip-summary .summary-content {
     display: flex;
     flex-direction: row;
     gap: 20px;
     justify-content: space-between;
     flex-wrap: wrap;
-    /* for mobile */
+    /* para mobile */
 }
 
 #trip-summary .summary-content .card {
     flex: 1;
     min-width: 280px;
-    /* prevents cards from being too narrow on small screens */
+    /* evita blocos muito estreitos em telas pequenas */
 }
+
 
 /* =========================================
    FOOTER
