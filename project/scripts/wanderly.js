@@ -51,7 +51,6 @@ const translations = {
         changeDestination: "Cambiar destino",
         myTrips: "Mi Viaje",
         nights: "noches",
-        noAccommodations: "No hay alojamientos disponibles para este destino.",
         selectOrigin: "Seleccionar origen"
     }
 };
@@ -68,10 +67,7 @@ function applyTranslations() {
     const t = translations[lang];
 
     const title = document.querySelector('#destinations h2');
-    if (title) {
-        title.textContent = t.destinations;
-    }
-
+    if (title) title.textContent = t.destinations;
 
     const subtitles = document.querySelectorAll('.section-subtitle');
     if (subtitles[0]) subtitles[0].textContent = t.national;
@@ -116,20 +112,13 @@ const brazilOrigins = [
 ];
 
 function populateOrigins() {
-    console.log("populateOrigins executou");
-
     const originSelect = document.getElementById('origin');
-    if (!originSelect) {
-        console.error("Select #origin NÃO encontrado no HTML");
-        return;
-    }
+    if (!originSelect) return;
 
-    // limpa completamente
     originSelect.innerHTML = '';
 
     const saved = localStorage.getItem(ORIGIN_KEY);
 
-    // placeholder
     const placeholder = document.createElement('option');
     placeholder.value = '';
     placeholder.textContent = translations[getLanguage()].selectOrigin;
@@ -137,27 +126,19 @@ function populateOrigins() {
     placeholder.selected = !saved;
     originSelect.appendChild(placeholder);
 
-    // adiciona TODAS as cidades
     brazilOrigins.forEach(city => {
         const option = document.createElement('option');
         option.value = city;
         option.textContent = city;
-
-        if (saved === city) {
-            option.selected = true;
-        }
-
+        if (saved === city) option.selected = true;
         originSelect.appendChild(option);
     });
 
-    // salva mudança
     originSelect.onchange = function () {
         localStorage.setItem(ORIGIN_KEY, this.value);
         renderCards();
         displayRoute();
     };
-
-    console.log("Total de opções:", originSelect.options.length);
 }
 
 /* ======================================================
@@ -299,17 +280,56 @@ const accommodations = {
     ]
 };
 
+function renderAccommodations() {
+    const natGrid = document.querySelector('.national-grid');
+    const intlGrid = document.querySelector('.international-grid');
+    if (!natGrid || !intlGrid) return;
+
+    const selectedDestination = localStorage.getItem(DESTINATION_KEY);
+    if (!selectedDestination) {
+        natGrid.innerHTML = `<p>${translations[getLanguage()].noAccommodations}</p>`;
+        intlGrid.innerHTML = '';
+        return;
+    }
+
+    const nationalHotels = accommodations.national.filter(acc => acc.destination === selectedDestination);
+    const internationalHotels = accommodations.international.filter(acc => acc.destination === selectedDestination);
+
+    const createCard = acc => `
+        <div class="card">
+            <img src="${acc.image}" alt="${acc.name}">
+            <h3>${acc.name}</h3>
+            <p>${translations[getLanguage()].from} ${formatPrice(acc.pricePerNight)}</p>
+            <button class="choose-accommodation">Adicionar Acomodação</button>
+        </div>
+    `;
+
+    natGrid.innerHTML = nationalHotels.length ? nationalHotels.map(createCard).join('') : `<p>${translations[getLanguage()].noAccommodations}</p>`;
+    intlGrid.innerHTML = internationalHotels.length ? internationalHotels.map(createCard).join('') : '';
+    setupCardButtons();
+}
+
+
 /* ======================================================
    FLIGHT PRICES
 ====================================================== */
-const flightPrices = {
-    "Aracaju/SE": { "Rio de Janeiro/RJ": 180, "São Paulo/SP": 200 },
-    "Belém/PA": { "Rio de Janeiro/RJ": 280, "São Paulo/SP": 300 },
-    "Belo Horizonte/MG": { "Rio de Janeiro/RJ": 100, "São Paulo/SP": 120 },
-    "Boa Vista/RR": { "Rio de Janeiro/RJ": 350, "São Paulo/SP": 370 },
-    "Brasília/DF": { "Rio de Janeiro/RJ": 150, "São Paulo/SP": 170 }
-    // completar todos os trechos necessários
-};
+function generateFlightPrice(origin, destination) {
+    const nationalDestinations = destinations.national.map(d => d.name);
+    const internationalDestinations = destinations.international.map(d => d.name);
+
+    let base;
+    if (nationalDestinations.includes(destination)) base = 120;
+    else if (internationalDestinations.includes(destination)) base = 750;
+    else return null;
+
+    const variation = Math.abs(origin.length * 7 - destination.length * 5) % 200;
+    return base + variation;
+}
+
+function getDestinationPrice(origin, destination) {
+    if (!origin || !destination) return null;
+    return generateFlightPrice(origin, destination);
+}
 
 /* ======================================================
    CURRENCY
@@ -339,14 +359,12 @@ function initializeCurrency() {
     });
 }
 
-
 /* ======================================================
    DATES
 ====================================================== */
 function initializeDates() {
     const checkInInput = document.querySelector('#checkin');
     const checkOutInput = document.querySelector('#checkout');
-
     if (!checkInInput || !checkOutInput) return;
 
     const savedCheckIn = localStorage.getItem(CHECKIN_KEY);
@@ -358,11 +376,13 @@ function initializeDates() {
     checkInInput.addEventListener('change', () => {
         localStorage.setItem(CHECKIN_KEY, checkInInput.value);
         renderCards();
+        displayStayPeriod();
     });
 
     checkOutInput.addEventListener('change', () => {
         localStorage.setItem(CHECKOUT_KEY, checkOutInput.value);
         renderCards();
+        displayStayPeriod();
     });
 }
 
@@ -375,38 +395,26 @@ function calculateNights(checkIn, checkOut) {
 /* ======================================================
    RENDER CARDS
 ====================================================== */
-function getDestinationPrice(origin, destination) {
-    if (
-        flightPrices &&
-        flightPrices[origin] &&
-        flightPrices[origin][destination]
-    ) {
-        return flightPrices[origin][destination];
-    }
-    return null;
-}
-
-
 function renderCards() {
     const t = translations[getLanguage()];
     const natGrid = document.querySelector('.national-grid');
     const intlGrid = document.querySelector('.international-grid');
     if (!natGrid || !intlGrid) return;
 
+    const origin = localStorage.getItem(ORIGIN_KEY);
     const selectedDestination = localStorage.getItem(DESTINATION_KEY);
-    natGrid.innerHTML = '';
-    intlGrid.innerHTML = '';
 
     const createCard = dest => {
-        const origin = localStorage.getItem(ORIGIN_KEY);
         const price = origin ? getDestinationPrice(origin, dest.name) : null;
+        const isSelected = selectedDestination === dest.name;
+        const cardClass = isSelected ? 'card selected' : 'card';
 
         return `
-            <div class="card">
+            <div class="${cardClass}">
                 <img src="${dest.image}" alt="${dest.name}">
                 <h3>${dest.name}</h3>
                 ${price ? `<p class="price">${t.from} ${formatPrice(price)}</p>` : ''}
-                <button>${selectedDestination === dest.name ? t.selected : t.select}</button>
+                <button class="select-destination">${isSelected ? t.selected : t.select}</button>
             </div>
         `;
     };
@@ -414,7 +422,45 @@ function renderCards() {
     natGrid.innerHTML = destinations.national.map(createCard).join('');
     intlGrid.innerHTML = destinations.international.map(createCard).join('');
 
-    setupCardButtons();
+    setupDestinationButtons();
+}
+
+/* ======================================================
+   CARD INTERACTIONS
+====================================================== */
+function setupDestinationButtons() {
+    document.querySelectorAll('.select-destination').forEach(btn => {
+        btn.addEventListener('click', e => {
+            const card = e.target.closest('.card');
+            const destinationName = card.querySelector('h3').textContent;
+
+            localStorage.setItem(DESTINATION_KEY, destinationName);
+
+            // Redireciona direto para a página de acomodações
+            window.location.href = 'listings.html';
+        });
+    });
+}
+
+function setupCardButtons() {
+    document.querySelectorAll('.choose-accommodation').forEach(btn => {
+        btn.onclick = e => {
+            const card = e.target.closest('.card');
+            const accommodationName = card.querySelector('h3').textContent;
+
+            // Pegando o valor da diária diretamente do objeto accommodations
+            const selectedDestination = localStorage.getItem(DESTINATION_KEY);
+            const acc = accommodations.national.concat(accommodations.international)
+                .find(a => a.name === accommodationName && a.destination === selectedDestination);
+
+            if (!acc) return;
+
+            localStorage.setItem('selectedAccommodation', accommodationName);
+            localStorage.setItem('selectedAccommodationPrice', acc.pricePerNight); // número puro
+
+            window.location.href = 'trips.html';
+        };
+    });
 }
 
 /* ======================================================
@@ -432,7 +478,6 @@ function displayRoute() {
         : '...';
 }
 
-
 /* ======================================================
    STAY PERIOD
 ====================================================== */
@@ -448,24 +493,8 @@ function displayStayPeriod() {
     }
 
     const nights = calculateNights(checkIn, checkOut);
-    el.textContent = `${nights} night${nights > 1 ? 's' : ''}`;
-}
-
-
-/* ======================================================
-   CARD INTERACTIONS
-====================================================== */
-function setupCardButtons() {
-    document.querySelectorAll('.card button').forEach(btn => {
-        btn.onclick = e => {
-            const card = e.target.closest('.card');
-            const destName = card.querySelector('h3').textContent;
-
-            localStorage.setItem(DESTINATION_KEY, destName);
-            renderCards();
-            displayRoute();
-        };
-    });
+    const t = translations[getLanguage()];
+    el.textContent = `${nights} ${t.nights}`;
 }
 
 /* ======================================================
@@ -477,6 +506,56 @@ function changeDestination() {
 }
 
 /* ======================================================
+   UPDATE TRIP SUMMARY (TRIPS.HTML)
+====================================================== */
+function updateTripSummary() {
+    const destination = localStorage.getItem(DESTINATION_KEY) || 'Não selecionado';
+    const accommodation = localStorage.getItem('selectedAccommodation') || 'Nenhuma';
+    const accommodationPrice = parseFloat(localStorage.getItem('selectedAccommodationPrice')) || 0;
+
+    const checkIn = localStorage.getItem(CHECKIN_KEY) || '---';
+    const checkOut = localStorage.getItem(CHECKOUT_KEY) || '---';
+    const nights = calculateNights(checkIn, checkOut);
+
+    const origin = localStorage.getItem(ORIGIN_KEY);
+    const flightPrice = origin && destination ? getDestinationPrice(origin, destination) || 0 : 0;
+
+    const total = flightPrice + accommodationPrice * nights;
+
+    const infoBlock = document.getElementById('trip-info');
+    if (infoBlock) {
+        infoBlock.innerHTML = `
+            <div class="card">
+                <h3>Destino selecionado:</h3>
+                <p>${destination}</p>
+                <h3>Datas:</h3>
+                <p>${checkIn} → ${checkOut} (${nights} noites)</p>
+                <h3>Acomodação:</h3>
+                <p>${accommodation}</p>
+            </div>
+        `;
+    }
+
+    const valueBlock = document.getElementById('trip-values');
+    if (valueBlock) {
+        valueBlock.innerHTML = `
+            <div class="card">
+                <h3>Valor do destino (voo):</h3>
+                <p>${formatPrice(flightPrice)}</p>
+                <h3>Diárias x valor da diária:</h3>
+                <p>${nights} x ${formatPrice(accommodationPrice)}</p>
+                <h3>Total a pagar:</h3>
+                <p>${formatPrice(total)}</p>
+            </div>
+        `;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateTripSummary();
+});
+
+/* ======================================================
    INIT
 ====================================================== */
 document.addEventListener('DOMContentLoaded', () => {
@@ -484,7 +563,25 @@ document.addEventListener('DOMContentLoaded', () => {
     populateOrigins();
     initializeCurrency();
     initializeDates();
-    renderCards();
     displayRoute();
     displayStayPeriod();
+
+    // Render cards se estiver em wanderly.html ou listings.html
+    const listingsSection = document.getElementById('listings');
+    if (listingsSection) {
+        renderAccommodations();
+        const currentDest = localStorage.getItem(DESTINATION_KEY);
+        if (currentDest) {
+            const currentDestEl = document.getElementById('current-destination');
+            if (currentDestEl) currentDestEl.textContent = currentDest;
+        }
+    } else {
+        renderCards();
+    }
+
+    // Atualizar resumo da viagem apenas se estiver em trips.html
+    if (document.getElementById('trip-summary')) {
+        updateTripSummaryFromStorage();
+    }
 });
+

@@ -34,7 +34,6 @@ header {
     justify-content: space-between;
     padding: 0 2rem;
     margin-bottom: 2rem;
-    /* 🔥 ISSO resolve */
 }
 
 .logo h1 {
@@ -75,6 +74,97 @@ header {
 }
 
 /* =========================================
+   TITLES
+========================================= */
+/* H2 - principais seções */
+h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2f5d7c;
+    margin-bottom: 0.6rem;
+    text-align: center;
+    position: relative;
+    letter-spacing: 0.5px;
+}
+
+/* Adicionando linha decorativa abaixo do H2 */
+h2::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: #f4a261;
+    margin: 0.5rem auto 0;
+    border-radius: 2px;
+}
+
+/* H3 - subtítulos ou títulos de card */
+h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #2f5d7c;
+    margin: 0.8rem 0 0.4rem;
+    text-align: center;
+    position: relative;
+    letter-spacing: 0.3px;
+}
+
+/* Linha decorativa abaixo do H3 */
+h3::after {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 3px;
+    background-color: #f4a261;
+    margin: 0.4rem auto 0;
+    border-radius: 2px;
+}
+
+#trip-summary {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+#trip-summary h2 {
+    margin-bottom: 1.5rem;
+}
+
+.summary-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: space-around;
+}
+
+.destination-summary,
+.accommodation-summary,
+.total-summary {
+    text-align: center;
+    flex: 1 1 300px;
+}
+
+.destination-summary img,
+.accommodation-summary img {
+    width: 100%;
+    max-width: 250px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+}
+
+.total-summary p {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #f4a261;
+    margin-top: 0.5rem;
+}
+
+/* =========================================
    ROUTE DISPLAY
 ========================================= */
 .route-display {
@@ -87,13 +177,12 @@ header {
 }
 
 /* =========================================
-   HERO COMPACTO (sem imagem)
+   HERO COMPACTO
 ========================================= */
 .hero {
     width: 100%;
     height: auto;
     padding: 0.5rem 1rem;
-    /* espaço reduzido */
     background-color: #f4f6f8;
     display: flex;
     justify-content: center;
@@ -116,12 +205,11 @@ header {
     font-size: 1.8rem;
     color: #2f5d7c;
     margin: 0 0 0.3rem 0;
-    /* margem mínima */
     text-align: center;
 }
 
 /* =========================================
-   SELECTED DESTINATION (LISTINGS PAGE)
+   SELECTED DESTINATION
 ========================================= */
 #selected-destination {
     max-width: 700px;
@@ -151,28 +239,19 @@ header {
 }
 
 /* =========================================
-   SEARCH SUMMARY (LISTINGS TOP BAR)
+   SEARCH SUMMARY
 ========================================= */
 .search-summary {
     max-width: 1200px;
     margin: 1.2rem auto 0.4rem;
-    /* 🔥 reduz espaço abaixo */
     padding: 1rem 1.5rem;
-
     background-color: #ffffff;
     border-radius: 16px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1.5rem;
-}
-
-#listings>h2 {
-    margin-top: 0.3rem;
-    /* 🔥 aproxima do bloco */
-    margin-bottom: 1.2rem;
 }
 
 .search-info {
@@ -200,7 +279,6 @@ header {
     font-weight: 600;
     font-size: 0.95rem;
     cursor: pointer;
-
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
@@ -209,9 +287,8 @@ header {
     transform: scale(1.05);
 }
 
-
 /* =========================================
-   SEARCH FORM / SELECT
+   SEARCH FORM
 ========================================= */
 #searchForm {
     margin: 0;
@@ -222,27 +299,28 @@ header {
     gap: 0.5rem;
 }
 
-#searchForm select {
-    width: 100%;
-    max-width: 320px;
+#searchForm select,
+#searchForm input[type="date"] {
     padding: 0.6rem 1rem;
-    font-size: 0.95rem;
     border-radius: 30px;
     border: none;
     font-family: 'Poppins', sans-serif;
     outline: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#searchForm select {
+    width: 100%;
+    max-width: 320px;
     appearance: none;
     background-color: #f4a261;
     color: #fff;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     padding-right: 2.5rem;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23fff' viewBox='0 0 16 16'%3E%3Cpath d='M1.5 5l6 6 6-6' stroke='%23fff' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 1rem center;
     background-size: 14px;
-    transition: transform 0.2s ease;
 }
 
 #searchForm select:hover {
@@ -253,57 +331,8 @@ header {
     box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.4);
 }
 
-/* =================
-   BOTÃO CHANGE DESTINATION
-================== */
-#change-destination {
-    display: block;
-    margin: 0.5rem auto 0.5rem;
-    /* reduz espaço vertical */
-    padding: 0.6rem 1.5rem;
-    border-radius: 20px;
-    border: none;
-    background-color: #f4a261;
-    color: #fff;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-#change-destination:hover {
-    background-color: #e5943f;
-    transform: scale(1.05);
-}
-
 /* =========================================
-   SECTION TITLES
-========================================= */
-section:first-of-type {
-    margin-top: 0;
-    /* remove grande espaço entre hero e seção */
-    padding-top: 0.5rem;
-    /* um pouco de respiro */
-}
-
-section h2 {
-    text-align: center;
-    font-size: 2rem;
-    margin: 0.5rem 0 0.5rem;
-    color: #2f5d7c;
-}
-
-.section-subtitle {
-    margin: 1rem 2rem 1rem;
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: #2f5d7c;
-    border-left: 4px solid #f4a261;
-    padding-left: 0.8rem;
-}
-
-/* =========================================
-   GRID / CARDS
+   CARD GRID
 ========================================= */
 .grid {
     display: grid;
@@ -316,9 +345,9 @@ section h2 {
     display: flex;
     flex-direction: column;
     background-color: #fff;
-    border-radius: 14px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 8px 20px;
     padding-bottom: 1.5rem;
     transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
 }
@@ -327,11 +356,6 @@ section h2 {
     width: 100%;
     height: 210px;
     object-fit: cover;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
 }
 
 .card h3 {
@@ -372,138 +396,43 @@ section h2 {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.card button:hover {
-    background-color: #24495a;
-    transform: scale(1.05);
-}
-
-/* =================
-   CARD HIGHLIGHT
-================== */
-.card.selected {
-    transform: scale(1.05);
+.card:hover {
+    transform: translateY(-5px);
     box-shadow: 0 12px 25px rgba(244, 162, 97, 0.6);
 }
 
-.card.not-selected {
-    opacity: 0.5;
+/* =========================================
+   SELECTED CARD STATES
+========================================= */
+.card.selected {
+    transform: scale(1.05);
+    box-shadow: 0 12px 25px;
 }
 
 .card.selected button {
     background-color: #f4a261;
-    color: #fff;
 }
 
 .card.selected button:hover {
     background-color: #e5943f;
 }
 
-/* =========================================
-   MODAL
-========================================= */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+/* Layout flex para trip-summary lado a lado */
+#trip-summary .summary-content {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.modal.hidden {
-    display: none;
-}
-
-.modal-content {
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 12px;
-    text-align: center;
-    max-width: 400px;
-    width: 90%;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-.modal-content p {
-    margin-bottom: 1.5rem;
-    font-size: 1.1rem;
-    color: #2f5d7c;
-    font-weight: 600;
-}
-
-.modal-buttons button {
-    margin: 0.5rem;
-    padding: 0.6rem 1.2rem;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-#goTrips {
-    background-color: #2f5d7c;
-    color: #fff;
-}
-
-#goAccommodations {
-    background-color: #f4a261;
-    color: #fff;
-}
-
-#closeModal {
-    background-color: #ccc;
-    color: #333;
-}
-
-.modal-buttons button:hover {
-    opacity: 0.85;
-}
-
-.search-form {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1.5rem;
-    justify-content: center;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-between;
     flex-wrap: wrap;
+    /* para mobile */
 }
 
-.form-field {
-    display: flex;
-    flex-direction: column;
-    font-size: 0.85rem;
-    min-width: 160px;
+#trip-summary .summary-content .card {
+    flex: 1;
+    min-width: 280px;
+    /* evita blocos muito estreitos em telas pequenas */
 }
 
-.form-field label {
-    margin-bottom: 0.3rem;
-    color: #fff;
-}
-
-.form-field input,
-.form-field select {
-    padding: 0.5rem;
-    border-radius: 6px;
-    border: none;
-    font-family: inherit;
-}
-
-#searchForm input[type="date"] {
-    background-color: #fff;
-    color: #333;
-    font-weight: 500;
-}
-
-.stay-period {
-    display: block;
-    margin-top: 0.3rem;
-    font-size: 0.9rem;
-    color: #666;
-}
 
 /* =========================================
    FOOTER

@@ -1,13 +1,13 @@
 <!-- trips.html -->
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 
 <head>
     <meta charset="UTF-8">
-    <title>Wanderly | My Trips</title>
+    <title>Wanderly | Minha Viagem</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="View and manage your saved trips.">
+    <meta name="description" content="Visualize e gerencie suas viagens salvas.">
     <meta name="author" content="Jéssica Seniw">
 
     <!-- CSS -->
@@ -22,7 +22,7 @@
 </head>
 
 <body>
-
+    <!-- HEADER -->
     <header class="main-header">
         <div class="logo">
             <h1>Wanderly</h1>
@@ -38,11 +38,7 @@
 
         <div class="header-actions">
             <span class="route-display" id="selected-route">...</span>
-            <select id="language">
-                <option value="en">EN</option>
-                <option value="pt">PT</option>
-                <option value="es">ES</option>
-            </select>
+
             <select id="currency">
                 <option value="USD">USD</option>
                 <option value="BRL">BRL</option>
@@ -51,11 +47,19 @@
         </div>
     </header>
 
-
     <main>
-        <section id="savedTrips">
-            <h2>My Trips</h2>
-            <div class="grid"></div>
+        <!-- TRIP SUMMARY -->
+        <section id="trip-summary">
+            <button class="change-btn" onclick="changeDestination()">Trocar destino</button>
+            <h2>Resumo da Viagem</h2>
+
+            <div class="summary-content">
+                <!-- Bloco 1: Destino, datas e acomodação -->
+                <div id="trip-info" class="card"></div>
+
+                <!-- Bloco 2: Valores -->
+                <div id="trip-values" class="card"></div>
+            </div>
         </section>
     </main>
 
