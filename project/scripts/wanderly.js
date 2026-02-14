@@ -67,7 +67,11 @@ function applyTranslations() {
     const lang = getLanguage();
     const t = translations[lang];
 
-    document.querySelector('#destinations h2')?.textContent = t.destinations;
+    const title = document.querySelector('#destinations h2');
+    if (title) {
+        title.textContent = t.destinations;
+    }
+
 
     const subtitles = document.querySelectorAll('.section-subtitle');
     if (subtitles[0]) subtitles[0].textContent = t.national;
@@ -77,7 +81,7 @@ function applyTranslations() {
     if (changeBtn) changeBtn.textContent = t.changeDestination;
 
     const originSelect = document.querySelector('#origin');
-    if (originSelect && originSelect.options.length) {
+    if (originSelect && originSelect.options.length > 0) {
         originSelect.options[0].textContent = t.selectOrigin;
     }
 }
@@ -94,7 +98,6 @@ function initializeLanguage() {
         applyTranslations();
         renderCards();
         displayStayPeriod();
-        renderTripSummary?.();
     });
 
     applyTranslations();
@@ -113,33 +116,48 @@ const brazilOrigins = [
 ];
 
 function populateOrigins() {
-    const originSelect = document.querySelector('#origin');
-    if (!originSelect) return;
+    console.log("populateOrigins executou");
 
+    const originSelect = document.getElementById('origin');
+    if (!originSelect) {
+        console.error("Select #origin NÃO encontrado no HTML");
+        return;
+    }
+
+    // limpa completamente
     originSelect.innerHTML = '';
 
+    const saved = localStorage.getItem(ORIGIN_KEY);
+
+    // placeholder
     const placeholder = document.createElement('option');
     placeholder.value = '';
+    placeholder.textContent = translations[getLanguage()].selectOrigin;
     placeholder.disabled = true;
-    placeholder.selected = true;
-    placeholder.textContent = translations[getLanguage()].selectOrigin || 'Select origin';
+    placeholder.selected = !saved;
     originSelect.appendChild(placeholder);
 
-    brazilOrigins.sort((a, b) => a.localeCompare(b, 'pt-BR')).forEach(city => {
+    // adiciona TODAS as cidades
+    brazilOrigins.forEach(city => {
         const option = document.createElement('option');
         option.value = city;
         option.textContent = city;
+
+        if (saved === city) {
+            option.selected = true;
+        }
+
         originSelect.appendChild(option);
     });
 
-    const saved = localStorage.getItem(ORIGIN_KEY);
-    if (saved) originSelect.value = saved;
-
-    originSelect.addEventListener('change', () => {
-        localStorage.setItem(ORIGIN_KEY, originSelect.value);
-        displayRoute();
+    // salva mudança
+    originSelect.onchange = function () {
+        localStorage.setItem(ORIGIN_KEY, this.value);
         renderCards();
-    });
+        displayRoute();
+    };
+
+    console.log("Total de opções:", originSelect.options.length);
 }
 
 /* ======================================================
@@ -301,8 +319,10 @@ const exchangeRates = { USD: 1, BRL: 5, EUR: 0.9 };
 function formatPrice(priceUSD) {
     const currency = localStorage.getItem(CURRENCY_KEY) || 'USD';
     const localeMap = { USD: 'en-US', BRL: 'pt-BR', EUR: 'de-DE' };
-    return new Intl.NumberFormat(localeMap[currency], { style: 'currency', currency })
-        .format(priceUSD * exchangeRates[currency]);
+    return new Intl.NumberFormat(localeMap[currency], {
+        style: 'currency',
+        currency
+    }).format(priceUSD * exchangeRates[currency]);
 }
 
 function initializeCurrency() {
@@ -318,6 +338,7 @@ function initializeCurrency() {
         displayRoute();
     });
 }
+
 
 /* ======================================================
    DATES
@@ -355,8 +376,16 @@ function calculateNights(checkIn, checkOut) {
    RENDER CARDS
 ====================================================== */
 function getDestinationPrice(origin, destination) {
-    return flightPrices[origin]?.[destination] || null;
+    if (
+        flightPrices &&
+        flightPrices[origin] &&
+        flightPrices[origin][destination]
+    ) {
+        return flightPrices[origin][destination];
+    }
+    return null;
 }
+
 
 function renderCards() {
     const t = translations[getLanguage()];
@@ -364,61 +393,28 @@ function renderCards() {
     const intlGrid = document.querySelector('.international-grid');
     if (!natGrid || !intlGrid) return;
 
-    const isListingsPage = window.location.pathname.includes('listings.html');
     const selectedDestination = localStorage.getItem(DESTINATION_KEY);
-
     natGrid.innerHTML = '';
     intlGrid.innerHTML = '';
 
-    const currentDestEl = document.getElementById('current-destination');
-    if (currentDestEl && selectedDestination) currentDestEl.textContent = selectedDestination;
+    const createCard = dest => {
+        const origin = localStorage.getItem(ORIGIN_KEY);
+        const price = origin ? getDestinationPrice(origin, dest.name) : null;
 
-    if (!isListingsPage) {
-        const createCard = dest => {
-            const origin = localStorage.getItem(ORIGIN_KEY);
-            const price = origin ? getDestinationPrice(origin, dest.name) : null;
-            return `
-                <div class="card">
-                    <img src="${dest.image}" alt="${dest.name}">
-                    <h3>${dest.name}</h3>
-                    ${price ? `<p class="price">${t.from} ${formatPrice(price)}</p>` : ''}
-                    <button>${selectedDestination === dest.name ? t.selected : t.select}</button>
-                </div>
-            `;
-        };
+        return `
+            <div class="card">
+                <img src="${dest.image}" alt="${dest.name}">
+                <h3>${dest.name}</h3>
+                ${price ? `<p class="price">${t.from} ${formatPrice(price)}</p>` : ''}
+                <button>${selectedDestination === dest.name ? t.selected : t.select}</button>
+            </div>
+        `;
+    };
 
-        natGrid.innerHTML = destinations.national.map(createCard).join('');
-        intlGrid.innerHTML = destinations.international.map(createCard).join('');
-        setupCardButtons();
-        return;
-    }
+    natGrid.innerHTML = destinations.national.map(createCard).join('');
+    intlGrid.innerHTML = destinations.international.map(createCard).join('');
 
-    if (!selectedDestination) {
-        natGrid.innerHTML = `<p style="grid-column:1/-1; text-align:center;">Please select a destination first.</p>`;
-        return;
-    }
-
-    // Render accommodations for the listings page
-    const origin = localStorage.getItem(ORIGIN_KEY);
-    const checkIn = localStorage.getItem(CHECKIN_KEY);
-    const checkOut = localStorage.getItem(CHECKOUT_KEY);
-    const nights = calculateNights(checkIn, checkOut);
-
-    const accoms = accommodations.national.concat(accommodations.international)
-        .filter(a => a.destination === selectedDestination);
-
-    if (accoms.length === 0) {
-        natGrid.innerHTML = `<p style="grid-column:1/-1; text-align:center;">${t.noAccommodations}</p>`;
-        return;
-    }
-
-    const accomCard = a => `<div class="card">
-        <img src="${a.image}" alt="${a.name}">
-        <h3>${a.name}</h3>
-        <p class="price">${t.from} ${formatPrice(a.pricePerNight * nights)}</p>
-    </div>`;
-
-    natGrid.innerHTML = accoms.map(accomCard).join('');
+    setupCardButtons();
 }
 
 /* ======================================================
@@ -431,8 +427,11 @@ function displayRoute() {
     const origin = localStorage.getItem(ORIGIN_KEY);
     const dest = localStorage.getItem(DESTINATION_KEY);
 
-    route.textContent = origin ? dest ? `${origin} → ${dest}` : `${origin} → ...` : '...';
+    route.textContent = origin
+        ? dest ? `${origin} → ${dest}` : `${origin} → ...`
+        : '...';
 }
+
 
 /* ======================================================
    STAY PERIOD
@@ -443,68 +442,30 @@ function displayStayPeriod() {
 
     const checkIn = localStorage.getItem(CHECKIN_KEY);
     const checkOut = localStorage.getItem(CHECKOUT_KEY);
-    if (!checkIn || !checkOut) { el.textContent = ''; return; }
+    if (!checkIn || !checkOut) {
+        el.textContent = '';
+        return;
+    }
 
     const nights = calculateNights(checkIn, checkOut);
-    const options = { month: 'short', day: 'numeric' };
-    const formatted = `${new Date(checkIn).toLocaleDateString('en-US', options)} – ${new Date(checkOut).toLocaleDateString('en-US', options)}`;
-    el.textContent = `${nights} night${nights > 1 ? 's' : ''} · ${formatted}`;
+    el.textContent = `${nights} night${nights > 1 ? 's' : ''}`;
 }
+
 
 /* ======================================================
-   MODAL & CARD INTERACTIONS
+   CARD INTERACTIONS
 ====================================================== */
-const modal = document.querySelector('#destinationModal');
-const btnTrips = document.querySelector('#goTrips');
-const btnAccom = document.querySelector('#goAccommodations');
-const btnClose = document.querySelector('#closeModal');
-
-function showModal() { modal?.classList.remove('hidden'); }
-function hideModal() { modal?.classList.add('hidden'); }
-
-function highlightSelectedCard(destName) {
-    const t = translations[getLanguage()];
-    document.querySelectorAll('.card').forEach(card => {
-        const name = card.querySelector('h3')?.textContent;
-        const btn = card.querySelector('button');
-        if (!btn) return;
-
-        if (name === destName) {
-            card.classList.add('selected'); card.classList.remove('not-selected');
-            btn.textContent = t.selected;
-            btn.style.backgroundColor = '#f4a261';
-            card.style.opacity = '1';
-        } else {
-            card.classList.remove('selected'); card.classList.add('not-selected');
-            btn.textContent = t.select;
-            btn.style.backgroundColor = '#2f5d7c';
-            card.style.opacity = '0.6';
-        }
-    });
-}
-
 function setupCardButtons() {
     document.querySelectorAll('.card button').forEach(btn => {
         btn.onclick = e => {
             const card = e.target.closest('.card');
             const destName = card.querySelector('h3').textContent;
 
-            if (btn.textContent === 'Selected') {
-                localStorage.removeItem(DESTINATION_KEY);
-                hideModal();
-            } else {
-                localStorage.setItem(DESTINATION_KEY, destName);
-                highlightSelectedCard(destName);
-                showModal();
-            }
-
+            localStorage.setItem(DESTINATION_KEY, destName);
+            renderCards();
             displayRoute();
         };
     });
-
-    btnTrips && (btnTrips.onclick = () => location.href = 'trips.html');
-    btnAccom && (btnAccom.onclick = () => location.href = 'listings.html');
-    btnClose && (btnClose.onclick = hideModal);
 }
 
 /* ======================================================
