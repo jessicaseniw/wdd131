@@ -30,19 +30,17 @@
         font-weight: 600;
     }
 
-
     .search-summary {
         margin-top: 3rem;
-        /* mais respiro no desktop */
+        /* more breathing space on desktop */
     }
 
-
-    /* ===== HERO (CORRIGIDO) ===== */
+    /* ===== HERO (FIXED) ===== */
     .hero {
         height: auto;
-        /* 🔴 REMOVE o espaço em branco */
+        /* 🔴 REMOVE the blank space */
         padding: 1.5rem 1rem;
-        /* Espaço elegante, sem exagero */
+        /* elegant spacing, not exaggerated */
         align-items: center;
     }
 

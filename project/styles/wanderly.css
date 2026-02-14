@@ -76,7 +76,7 @@ header {
 /* =========================================
    TITLES
 ========================================= */
-/* H2 - principais seções */
+/* H2 - main sections */
 h2 {
     font-size: 2rem;
     font-weight: 700;
@@ -87,7 +87,7 @@ h2 {
     letter-spacing: 0.5px;
 }
 
-/* Adicionando linha decorativa abaixo do H2 */
+/* Decorative line below H2 */
 h2::after {
     content: "";
     display: block;
@@ -98,7 +98,7 @@ h2::after {
     border-radius: 2px;
 }
 
-/* H3 - subtítulos ou títulos de card */
+/* H3 - subtitles or card titles */
 h3 {
     font-size: 1.8rem;
     font-weight: 600;
@@ -109,7 +109,7 @@ h3 {
     letter-spacing: 0.3px;
 }
 
-/* Linha decorativa abaixo do H3 */
+/* Decorative line below H3 */
 h3::after {
     content: "";
     display: block;
@@ -120,6 +120,7 @@ h3::after {
     border-radius: 2px;
 }
 
+/* Trip summary container */
 #trip-summary {
     max-width: 1200px;
     margin: 2rem auto;
@@ -177,7 +178,7 @@ h3::after {
 }
 
 /* =========================================
-   HERO COMPACTO
+   COMPACT HERO
 ========================================= */
 .hero {
     width: 100%;
@@ -417,22 +418,21 @@ h3::after {
     background-color: #e5943f;
 }
 
-/* Layout flex para trip-summary lado a lado */
+/* Flex layout for trip-summary side by side */
 #trip-summary .summary-content {
     display: flex;
     flex-direction: row;
     gap: 20px;
     justify-content: space-between;
     flex-wrap: wrap;
-    /* para mobile */
+    /* for mobile */
 }
 
 #trip-summary .summary-content .card {
     flex: 1;
     min-width: 280px;
-    /* evita blocos muito estreitos em telas pequenas */
+    /* prevents cards from being too narrow on small screens */
 }
-
 
 /* =========================================
    FOOTER

@@ -20,38 +20,11 @@ const translations = {
         selected: "Selected",
         from: "From",
         accommodations: "Available Accommodations",
-        changeDestination: "Change destination",
+        changeDestination: "Change Destination",
         myTrips: "My Trip",
         nights: "nights",
         noAccommodations: "No accommodations available for this destination.",
         selectOrigin: "Select origin"
-    },
-    pt: {
-        destinations: "Destinos Disponíveis",
-        national: "Destinos Nacionais",
-        international: "Destinos Internacionais",
-        select: "Selecionar",
-        selected: "Selecionado",
-        from: "A partir de",
-        accommodations: "Acomodações Disponíveis",
-        changeDestination: "Trocar destino",
-        myTrips: "Minha Viagem",
-        nights: "noites",
-        noAccommodations: "Nenhuma acomodação disponível para este destino.",
-        selectOrigin: "Selecione a origem"
-    },
-    es: {
-        destinations: "Destinos Disponibles",
-        national: "Destinos Nacionales",
-        international: "Destinos Internacionales",
-        select: "Seleccionar",
-        selected: "Seleccionado",
-        from: "Desde",
-        accommodations: "Alojamientos Disponibles",
-        changeDestination: "Cambiar destino",
-        myTrips: "Mi Viaje",
-        nights: "noches",
-        selectOrigin: "Seleccionar origen"
     }
 };
 
@@ -300,7 +273,7 @@ function renderAccommodations() {
             <img src="${acc.image}" alt="${acc.name}">
             <h3>${acc.name}</h3>
             <p>${translations[getLanguage()].from} ${formatPrice(acc.pricePerNight)}</p>
-            <button class="choose-accommodation">Adicionar Acomodação</button>
+            <button class="choose-accommodation">Add Accommodation</button>
         </div>
     `;
 
@@ -308,7 +281,6 @@ function renderAccommodations() {
     intlGrid.innerHTML = internationalHotels.length ? internationalHotels.map(createCard).join('') : '';
     setupCardButtons();
 }
-
 
 /* ======================================================
    FLIGHT PRICES
@@ -436,7 +408,7 @@ function setupDestinationButtons() {
 
             localStorage.setItem(DESTINATION_KEY, destinationName);
 
-            // Redireciona direto para a página de acomodações
+            // Redirect directly to the accommodations page
             window.location.href = 'listings.html';
         });
     });
@@ -448,7 +420,7 @@ function setupCardButtons() {
             const card = e.target.closest('.card');
             const accommodationName = card.querySelector('h3').textContent;
 
-            // Pegando o valor da diária diretamente do objeto accommodations
+            // Get the nightly price directly from the accommodations object
             const selectedDestination = localStorage.getItem(DESTINATION_KEY);
             const acc = accommodations.national.concat(accommodations.international)
                 .find(a => a.name === accommodationName && a.destination === selectedDestination);
@@ -456,7 +428,7 @@ function setupCardButtons() {
             if (!acc) return;
 
             localStorage.setItem('selectedAccommodation', accommodationName);
-            localStorage.setItem('selectedAccommodationPrice', acc.pricePerNight); // número puro
+            localStorage.setItem('selectedAccommodationPrice', acc.pricePerNight); // raw number
 
             window.location.href = 'trips.html';
         };
@@ -509,8 +481,8 @@ function changeDestination() {
    UPDATE TRIP SUMMARY (TRIPS.HTML)
 ====================================================== */
 function updateTripSummary() {
-    const destination = localStorage.getItem(DESTINATION_KEY) || 'Não selecionado';
-    const accommodation = localStorage.getItem('selectedAccommodation') || 'Nenhuma';
+    const destination = localStorage.getItem(DESTINATION_KEY) || 'Not selected';
+    const accommodation = localStorage.getItem('selectedAccommodation') || 'None';
     const accommodationPrice = parseFloat(localStorage.getItem('selectedAccommodationPrice')) || 0;
 
     const checkIn = localStorage.getItem(CHECKIN_KEY) || '---';
@@ -526,11 +498,11 @@ function updateTripSummary() {
     if (infoBlock) {
         infoBlock.innerHTML = `
             <div class="card">
-                <h3>Destino selecionado:</h3>
+                <h3>Selected Destination:</h3>
                 <p>${destination}</p>
-                <h3>Datas:</h3>
-                <p>${checkIn} → ${checkOut} (${nights} noites)</p>
-                <h3>Acomodação:</h3>
+                <h3>Dates:</h3>
+                <p>${checkIn} → ${checkOut} (${nights} nights)</p>
+                <h3>Accommodation:</h3>
                 <p>${accommodation}</p>
             </div>
         `;
@@ -540,11 +512,11 @@ function updateTripSummary() {
     if (valueBlock) {
         valueBlock.innerHTML = `
             <div class="card">
-                <h3>Valor do destino (voo):</h3>
+                <h3>Destination cost (flight):</h3>
                 <p>${formatPrice(flightPrice)}</p>
-                <h3>Diárias x valor da diária:</h3>
-                <p>${nights} x ${formatPrice(accommodationPrice)}</p>
-                <h3>Total a pagar:</h3>
+                <h3>Nights × nightly price:</h3>
+                <p>${nights} × ${formatPrice(accommodationPrice)}</p>
+                <h3>Total to pay:</h3>
                 <p>${formatPrice(total)}</p>
             </div>
         `;
@@ -566,7 +538,7 @@ document.addEventListener('DOMContentLoaded', () => {
     displayRoute();
     displayStayPeriod();
 
-    // Render cards se estiver em wanderly.html ou listings.html
+    // Render cards if on wanderly.html or listings.html
     const listingsSection = document.getElementById('listings');
     if (listingsSection) {
         renderAccommodations();
@@ -579,9 +551,8 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCards();
     }
 
-    // Atualizar resumo da viagem apenas se estiver em trips.html
+    // Update trip summary only if on trips.html
     if (document.getElementById('trip-summary')) {
         updateTripSummaryFromStorage();
     }
 });
-
