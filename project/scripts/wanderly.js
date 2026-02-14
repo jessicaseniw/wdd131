@@ -1,82 +1,162 @@
-// =====================================================
-// Wanderly - Main JavaScript File
-// =====================================================
+/* ======================================================
+   KEYS
+====================================================== */
+const ORIGIN_KEY = 'selectedOrigin';
+const DESTINATION_KEY = 'selectedDestination';
+const CURRENCY_KEY = 'selectedCurrency';
+const CHECKIN_KEY = 'checkInDate';
+const CHECKOUT_KEY = 'checkOutDate';
+const LANGUAGE_KEY = 'selectedLanguage';
 
-const ITEMS_LIMIT = 10;
-
-/* ---------------- TRANSLATIONS ---------------- */
+/* ======================================================
+   TRANSLATIONS
+====================================================== */
 const translations = {
     en: {
-        searchTitle: 'Find Your Next Trip',
-        destinations: 'Available Destinations',
-        accommodations: 'Accommodations',
-        myTrips: 'My Trips',
-        addTrip: 'Add to Trip',
-        perNight: 'per night',
-        noTrips: 'No trips planned yet.',
-        showMore: 'Show more',
-        showLess: 'Show less',
-        national: 'National',
-        international: 'International',
-        nationalAcc: 'National Accommodations',
-        internationalAcc: 'International Accommodations'
+        destinations: "Available Destinations",
+        national: "National Destinations",
+        international: "International Destinations",
+        select: "Select",
+        selected: "Selected",
+        from: "From",
+        accommodations: "Available Accommodations",
+        changeDestination: "Change destination",
+        myTrips: "My Trip",
+        nights: "nights",
+        noAccommodations: "No accommodations available for this destination.",
+        selectOrigin: "Select origin"
     },
     pt: {
-        searchTitle: 'Encontre sua próxima viagem',
-        destinations: 'Destinos Disponíveis',
-        accommodations: 'Acomodações',
-        myTrips: 'Minhas Viagens',
-        addTrip: 'Adicionar à viagem',
-        perNight: 'por noite',
-        noTrips: 'Nenhuma viagem planejada.',
-        showMore: 'Mostrar mais',
-        showLess: 'Mostrar menos',
-        national: 'Nacionais',
-        international: 'Internacionais',
-        nationalAcc: 'Acomodações Nacionais',
-        internationalAcc: 'Acomodações Internacionais'
+        destinations: "Destinos Disponíveis",
+        national: "Destinos Nacionais",
+        international: "Destinos Internacionais",
+        select: "Selecionar",
+        selected: "Selecionado",
+        from: "A partir de",
+        accommodations: "Acomodações Disponíveis",
+        changeDestination: "Trocar destino",
+        myTrips: "Minha Viagem",
+        nights: "noites",
+        noAccommodations: "Nenhuma acomodação disponível para este destino.",
+        selectOrigin: "Selecione a origem"
+    },
+    es: {
+        destinations: "Destinos Disponibles",
+        national: "Destinos Nacionales",
+        international: "Destinos Internacionales",
+        select: "Seleccionar",
+        selected: "Seleccionado",
+        from: "Desde",
+        accommodations: "Alojamientos Disponibles",
+        changeDestination: "Cambiar destino",
+        myTrips: "Mi Viaje",
+        nights: "noches",
+        noAccommodations: "No hay alojamientos disponibles para este destino.",
+        selectOrigin: "Seleccionar origen"
     }
 };
 
-let currentLanguage = localStorage.getItem('language') || 'en';
-
-/* ---------------- CURRENCY ---------------- */
-const currencyRates = {
-    USD: { symbol: '$', rate: 1 },
-    BRL: { symbol: 'R$', rate: 5 },
-    EUR: { symbol: '€', rate: 0.9 }
-};
-
-let currentCurrency = localStorage.getItem('currency') || 'USD';
-
-function formatPrice(price) {
-    const { symbol, rate } = currencyRates[currentCurrency];
-    return `${symbol}${(price * rate).toFixed(0)}`;
+/* ======================================================
+   LANGUAGE
+====================================================== */
+function getLanguage() {
+    return localStorage.getItem(LANGUAGE_KEY) || 'en';
 }
 
-/* ---------------- DATA ---------------- */
+function applyTranslations() {
+    const lang = getLanguage();
+    const t = translations[lang];
+
+    document.querySelector('#destinations h2')?.textContent = t.destinations;
+
+    const subtitles = document.querySelectorAll('.section-subtitle');
+    if (subtitles[0]) subtitles[0].textContent = t.national;
+    if (subtitles[1]) subtitles[1].textContent = t.international;
+
+    const changeBtn = document.querySelector('.change-btn');
+    if (changeBtn) changeBtn.textContent = t.changeDestination;
+
+    const originSelect = document.querySelector('#origin');
+    if (originSelect && originSelect.options.length) {
+        originSelect.options[0].textContent = t.selectOrigin;
+    }
+}
+
+function initializeLanguage() {
+    const select = document.querySelector('#language');
+    if (!select) return;
+
+    const saved = localStorage.getItem(LANGUAGE_KEY);
+    if (saved) select.value = saved;
+
+    select.addEventListener('change', () => {
+        localStorage.setItem(LANGUAGE_KEY, select.value);
+        applyTranslations();
+        renderCards();
+        displayStayPeriod();
+        renderTripSummary?.();
+    });
+
+    applyTranslations();
+}
+
+/* ======================================================
+   BRAZIL ORIGINS
+====================================================== */
+const brazilOrigins = [
+    "Aracaju/SE", "Belém/PA", "Belo Horizonte/MG", "Boa Vista/RR", "Brasília/DF",
+    "Campo Grande/MS", "Cuiabá/MT", "Curitiba/PR", "Florianópolis/SC", "Fortaleza/CE",
+    "Goiânia/GO", "João Pessoa/PB", "Macapá/AP", "Maceió/AL", "Manaus/AM",
+    "Natal/RN", "Palmas/TO", "Porto Alegre/RS", "Porto Velho/RO", "Recife/PE",
+    "Rio Branco/AC", "Rio de Janeiro/RJ", "Salvador/BA", "São Luís/MA",
+    "São Paulo/SP", "Teresina/PI", "Vitória/ES"
+];
+
+function populateOrigins() {
+    const originSelect = document.querySelector('#origin');
+    if (!originSelect) return;
+
+    originSelect.innerHTML = '';
+
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.disabled = true;
+    placeholder.selected = true;
+    placeholder.textContent = translations[getLanguage()].selectOrigin || 'Select origin';
+    originSelect.appendChild(placeholder);
+
+    brazilOrigins.sort((a, b) => a.localeCompare(b, 'pt-BR')).forEach(city => {
+        const option = document.createElement('option');
+        option.value = city;
+        option.textContent = city;
+        originSelect.appendChild(option);
+    });
+
+    const saved = localStorage.getItem(ORIGIN_KEY);
+    if (saved) originSelect.value = saved;
+
+    originSelect.addEventListener('change', () => {
+        localStorage.setItem(ORIGIN_KEY, originSelect.value);
+        displayRoute();
+        renderCards();
+    });
+}
+
+/* ======================================================
+   DESTINATIONS
+====================================================== */
 const destinations = {
     national: [
-        { name: 'Rio de Janeiro / RJ', image: 'images/rio-de-janeiro.avif' },
-        { name: 'São Paulo / SP', image: 'images/sao-paulo.avif' },
-        { name: 'Salvador / BA', image: 'images/salvador.avif' },
-        { name: 'Florianópolis / SC', image: 'images/florianopolis.avif' },
-        { name: 'Gramado / RS', image: 'images/gramado.avif' },
-        { name: 'Foz do Iguaçu / PR', image: 'images/foz-do-iguacu.avif' },
-        { name: 'Natal / RN', image: 'images/natal.avif' },
-        { name: 'Recife / PE', image: 'images/recife.avif' },
-        { name: 'Fortaleza / CE', image: 'images/fortaleza.avif' },
-        { name: 'Maceió / AL', image: 'images/maceio.avif' },
-        { name: 'Arraial do Cabo / RJ', image: 'images/arraial-do-cabo.avif' },
-        { name: 'Búzios / RJ', image: 'images/buzios.avif' },
-        { name: 'Porto Seguro / BA', image: 'images/porto-seguro.avif' },
-        { name: 'Jericoacoara / CE', image: 'images/jericoacoara.avif' },
-        { name: 'Lençóis Maranhenses / MA', image: 'images/lencois-maranhenseis.avif' },
-        { name: 'Bonito / MS', image: 'images/bonito.avif' },
-        { name: 'Campos do Jordão / SP', image: 'images/campos-do-jordao.avif' },
-        { name: 'Ilhabela / SP', image: 'images/ilhabela.avif' },
-        { name: 'Ubatuba / SP', image: 'images/ubatuba.avif' },
-        { name: 'Vitória / ES', image: 'images/vitoria.avif' }
+        { name: 'Rio de Janeiro/RJ', image: 'images/rio-de-janeiro.avif' },
+        { name: 'São Paulo/SP', image: 'images/sao-paulo.avif' },
+        { name: 'Salvador/BA', image: 'images/salvador.avif' },
+        { name: 'Florianópolis/SC', image: 'images/florianopolis.avif' },
+        { name: 'Gramado/RS', image: 'images/gramado.avif' },
+        { name: 'Foz do Iguaçu/PR', image: 'images/foz-do-iguacu.avif' },
+        { name: 'Natal/RN', image: 'images/natal.avif' },
+        { name: 'Recife/PE', image: 'images/recife.avif' },
+        { name: 'Fortaleza/CE', image: 'images/fortaleza.avif' },
+        { name: 'Maceió/AL', image: 'images/maceio.avif' }
     ],
     international: [
         { name: 'Paris, France', image: 'images/paris.avif' },
@@ -85,185 +165,365 @@ const destinations = {
         { name: 'Barcelona, Spain', image: 'images/barcelona.avif' },
         { name: 'Lisbon, Portugal', image: 'images/lisbon.avif' },
         { name: 'New York, USA', image: 'images/new-york.avif' },
-        { name: 'Los Angeles, USA', image: 'images/los-angeles.avif' },
-        { name: 'Miami, USA', image: 'images/miami.avif' },
         { name: 'Tokyo, Japan', image: 'images/tokyo.avif' },
-        { name: 'Kyoto, Japan', image: 'images/kyoto.avif' },
-        { name: 'Bangkok, Thailand', image: 'images/bangkok.avif' },
-        { name: 'Sydney, Australia', image: 'images/sydney.avif' },
-        { name: 'Melbourne, Australia', image: 'images/melbourne.avif' },
-        { name: 'Toronto, Canada', image: 'images/toronto.avif' },
-        { name: 'Vancouver, Canada', image: 'images/vancouver.avif' },
-        { name: 'Buenos Aires, Argentina', image: 'images/buenos-aires.avif' },
-        { name: 'Santiago, Chile', image: 'images/santiago.avif' },
         { name: 'Cancún, Mexico', image: 'images/cancun.avif' },
         { name: 'Dubai, UAE', image: 'images/dubai.avif' },
-        { name: 'Cape Town, South Africa', image: 'images/cape-town.avif' }
+        { name: 'Sydney, Australia', image: 'images/sydney.avif' }
     ]
 };
 
-const accommodations = [
-    { id: 1, name: 'Beach Resort', city: 'Rio de Janeiro', price: 120, image: 'images/hotel-rio.avif' },
-    { id: 2, name: 'City Hotel', city: 'São Paulo', price: 90, image: 'images/hotel-sp.avif' },
-    { id: 3, name: 'Mountain Lodge', city: 'Gramado', price: 150, image: 'images/hotel-gramado.avif' },
-    { id: 4, name: 'Ocean View Hotel', city: 'Florianópolis', price: 110, image: 'images/hotel-floripa.avif' },
-    { id: 5, name: 'Historic Inn', city: 'Salvador', price: 95, image: 'images/hotel-salvador.avif' },
-    { id: 6, name: 'Downtown Apartment', city: 'New York, USA', price: 180, image: 'images/hotel-ny.avif' },
-    { id: 7, name: 'Boutique Hotel', city: 'Paris, France', price: 200, image: 'images/hotel-paris.avif' },
-    { id: 8, name: 'City Center Hostel', city: 'Barcelona, Spain', price: 80, image: 'images/hotel-barcelona.avif' },
-    { id: 9, name: 'Luxury Resort', city: 'Cancún, Mexico', price: 220, image: 'images/hotel-cancun.avif' },
-    { id: 10, name: 'Urban Stay', city: 'Tokyo, Japan', price: 170, image: 'images/hotel-tokyo.avif' }
-];
+/* ======================================================
+   ACCOMMODATIONS
+====================================================== */
+const accommodations = {
+    national: [
+        //Rio de Janeiro
+        { name: 'Atlântico Rio Palace', destination: 'Rio de Janeiro/RJ', image: 'images/hotel/national/hotel-rio1.avif', pricePerNight: 85 },
+        { name: 'Copacabana View Hotel', destination: 'Rio de Janeiro/RJ', image: 'images/hotel/national/hotel-rio2.avif', pricePerNight: 140 },
+        { name: 'Mar Azul Boutique Hotel', destination: 'Rio de Janeiro/RJ', image: 'images/hotel/national/hotel-rio3.avif', pricePerNight: 210 },
 
-/* ---------------- DOM ELEMENTS ---------------- */
-const destinationsSection = document.querySelector('#destinations');
-const listingsSection = document.querySelector('#listings');
+        //São Paulo
+        { name: 'Paulista Prime Hotel', destination: 'São Paulo/SP', image: 'images/hotel/national/hotel-sp1.avif', pricePerNight: 120 },
+        { name: 'Vila Urbana Residence', destination: 'São Paulo/SP', image: 'images/hotel/national/hotel-sp2.avif', pricePerNight: 180 },
+        { name: 'Metropolitan Center Hotel', destination: 'São Paulo/SP', image: 'images/hotel/national/hotel-sp3.avif', pricePerNight: 250 },
 
-/* ---------------- HELPERS ---------------- */
-function renderShowMoreGrid(list, renderCard) {
-    let showAll = false;
+        //Salvador
+        { name: 'Solar do Pelourinho Hotel', destination: 'Salvador/BA', image: 'images/hotel/national/hotel-salvador1.avif', pricePerNight: 90 },
+        { name: 'Bahia Mar Resort', destination: 'Salvador/BA', image: 'images/hotel/national/hotel-salvador2.avif', pricePerNight: 150 },
+        { name: 'Encanto do Farol Hotel', destination: 'Salvador/BA', image: 'images/hotel/national/hotel-salvador3.avif', pricePerNight: 180 },
 
-    const grid = document.createElement('div');
-    grid.classList.add('grid');
+        //Florianópolis
+        { name: 'Ilha da Magia Resort', destination: 'Florianópolis/SC', image: 'images/hotel/national/hotel-floripa1.avif', pricePerNight: 120 },
+        { name: 'Praia Norte Hotel', destination: 'Florianópolis/SC', image: 'images/hotel/national/hotel-floripa2.avif', pricePerNight: 160 },
+        { name: 'Costa Azul Boutique Hotel', destination: 'Florianópolis/SC', image: 'images/hotel/national/hotel-floripa3.avif', pricePerNight: 200 },
 
-    const buttonContainer = document.createElement('div');
-    buttonContainer.classList.add('show-more-container');
+        //Gramado
+        { name: 'Vale das Hortênsias Hotel', destination: 'Gramado/RS', image: 'images/hotel/national/hotel-gramado1.avif', pricePerNight: 100 },
+        { name: 'Alpen Lumière Hotel', destination: 'Gramado/RS', image: 'images/hotel/national/hotel-gramado2.avif', pricePerNight: 140 },
+        { name: 'Montanha Encantada Resort', destination: 'Gramado/RS', image: 'images/hotel/national/hotel-gramado3.avif', pricePerNight: 180 },
 
-    const button = document.createElement('button');
-    button.classList.add('show-more-btn');
+        //Foz do Iguaçu
+        { name: 'Cataratas View Hotel', destination: 'Foz do Iguaçu/PR', image: 'images/hotel/national/hotel-foz1.avif', pricePerNight: 110 },
+        { name: 'Tríplice Fronteira Resort', destination: 'Foz do Iguaçu/PR', image: 'images/hotel/national/hotel-foz2.avif', pricePerNight: 160 },
+        { name: 'Nature Falls Lodge', destination: 'Foz do Iguaçu/PR', image: 'images/hotel/national/hotel-foz3.avif', pricePerNight: 200 },
 
-    function update() {
-        grid.innerHTML = '';
-        const items = showAll ? list : list.slice(0, ITEMS_LIMIT);
-        items.forEach(item => grid.appendChild(renderCard(item)));
-        button.textContent = showAll ? translations[currentLanguage].showLess : translations[currentLanguage].showMore;
-    }
+        //Natal
+        { name: 'Dunas Sun Hotel', destination: 'Natal/RN', image: 'images/hotel/national/hotel-natal1.avif', pricePerNight: 95 },
+        { name: 'Ponta Negra Resort', destination: 'Natal/RN', image: 'images/hotel/national/hotel-natal2.avif', pricePerNight: 140 },
+        { name: 'Atlântico Breeze Hotel', destination: 'Natal/RN', image: 'images/hotel/national/hotel-natal3.avif', pricePerNight: 180 },
 
-    button.addEventListener('click', () => {
-        showAll = !showAll;
-        update();
-    });
+        //Recife
+        { name: 'Boa Viagem Palace', destination: 'Recife/PE', image: 'images/hotel/national/hotel-recife1.avif', pricePerNight: 100 },
+        { name: 'Mar do Nordeste Hotel', destination: 'Recife/PE', image: 'images/hotel/national/hotel-recife2.avif', pricePerNight: 130 },
+        { name: 'Porto do Sol Resort', destination: 'Recife/PE', image: 'images/hotel/national/hotel-recife3.avif', pricePerNight: 160 },
 
-    update();
+        //Fortaleza
+        { name: 'Beira-Mar Premium Hotel', destination: 'Fortaleza/CE', image: 'images/hotel/national/hotel-fortaleza1.avif', pricePerNight: 120 },
+        { name: 'Vento Leste Resort', destination: 'Fortaleza/CE', image: 'images/hotel/national/hotel-fortaleza2.avif', pricePerNight: 150 },
+        { name: 'Costa Dourada Hotel', destination: 'Fortaleza/CE', image: 'images/hotel/national/hotel-fortaleza3.avif', pricePerNight: 180 },
 
-    return { grid, button, buttonContainer };
+        //Maceió
+        { name: 'Piscinas Naturais Resort', destination: 'Maceió/AL', image: 'images/hotel/national/hotel-maceio1.avif', pricePerNight: 100 },
+        { name: 'Mar Verde Boutique Hotel', destination: 'Maceió/AL', image: 'images/hotel/national/hotel-maceio2.avif', pricePerNight: 130 },
+        { name: 'Atlântica Paradise Hotel', destination: 'Maceió/AL', image: 'images/hotel/national/hotel-maceio3.avif', pricePerNight: 160 }
+    ],
+    international: [
+
+        //Paris
+        { name: 'Hotel Lumière Paris', destination: 'Paris, France', image: 'images/hotel/international/hotel-paris1.avif', pricePerNight: 250 },
+        { name: 'Eiffel View Boutique', destination: 'Paris, France', image: 'images/hotel/international/hotel-paris2.avif', pricePerNight: 300 },
+        { name: 'Champs Élégance Hotel', destination: 'Paris, France', image: 'images/hotel/international/hotel-paris3.avif', pricePerNight: 350 },
+
+        //London
+        { name: 'Royal Thames Hotel', destination: 'London, England', image: 'images/hotel/international/hotel-london1.avif', pricePerNight: 200 },
+        { name: 'Westminster Grand', destination: 'London, England', image: 'images/hotel/international/hotel-london2.avif', pricePerNight: 250 },
+        { name: 'Camden City Hotel', destination: 'London, England', image: 'images/hotel/international/hotel-london3.avif', pricePerNight: 180 },
+
+        //Rome
+        { name: 'Roma Antica Hotel', destination: 'Rome, Italy', image: 'images/hotel/international/hotel-rome1.avif', pricePerNight: 220 },
+        { name: 'Colosseum View Inn', destination: 'Rome, Italy', image: 'images/hotel/international/hotel-rome2.avif', pricePerNight: 180 },
+        { name: 'Vaticano Boutique Hotel', destination: 'Rome, Italy', image: 'images/hotel/international/hotel-rome3.avif', pricePerNight: 250 },
+
+        //Barcelona
+        { name: 'Costa Catalana Hotel', destination: 'Barcelona, Spain', image: 'images/hotel/international/hotel-barcelona1.avif', pricePerNight: 180 },
+        { name: 'Gaudí Style Resort', destination: 'Barcelona, Spain', image: 'images/hotel/international/hotel-barcelona2.avif', pricePerNight: 220 },
+        { name: 'Mediterráneo Urban Hotel', destination: 'Barcelona, Spain', image: 'images/hotel/international/hotel-barcelona3.avif', pricePerNight: 190 },
+
+        //Lisbon
+        { name: 'Alfama Charm Hotel', destination: 'Lisbon, Portugal', image: 'images/hotel/international/hotel-lisbon1.avif', pricePerNight: 160 },
+        { name: 'Tejo View Residence', destination: 'Lisbon, Portugal', image: 'images/hotel/international/hotel-lisbon2.avif', pricePerNight: 170 },
+        { name: 'Luz do Castelo Hotel', destination: 'Lisbon, Portugal', image: 'images/hotel/international/hotel-lisbon3.avif', pricePerNight: 150 },
+
+        //New York
+        { name: 'Manhattan Skyline Hotel', destination: 'New York, USA', image: 'images/hotel/international/hotel-ny1.avif', pricePerNight: 300 },
+        { name: 'Central Park View', destination: 'New York, USA', image: 'images/hotel/international/hotel-ny2.avif', pricePerNight: 250 },
+        { name: 'Hudson River Lodge', destination: 'New York, USA', image: 'images/hotel/international/hotel-ny3.avif', pricePerNight: 200 },
+
+        //Tokyo
+        { name: 'Sakura Tower Hotel', destination: 'Tokyo, Japan', image: 'images/hotel/international/hotel-tokyo1.avif', pricePerNight: 220 },
+        { name: 'Shibuya Urban Stay', destination: 'Tokyo, Japan', image: 'images/hotel/international/hotel-tokyo2.avif', pricePerNight: 180 },
+        { name: 'Zen Garden Ryokan', destination: 'Tokyo, Japan', image: 'images/hotel/international/hotel-tokyo3.avif', pricePerNight: 250 },
+
+        //Cancún
+        { name: 'Caribe Azul Resort', destination: 'Cancún, Mexico', image: 'images/hotel/international/hotel-cancun1.avif', pricePerNight: 180 },
+        { name: 'Playa Blanca Hotel', destination: 'Cancún, Mexico', image: 'images/hotel/international/hotel-cancun2.avif', pricePerNight: 160 },
+        { name: 'Maya Sun Paradise', destination: 'Cancún, Mexico', image: 'images/hotel/international/hotel-cancun3.avif', pricePerNight: 200 },
+
+        //Dubai
+        { name: 'Desert Pearl Hotel', destination: 'Dubai, UAE', image: 'images/hotel/international/hotel-dubai1.avif', pricePerNight: 280 },
+        { name: 'Skyline Luxury Resort', destination: 'Dubai, UAE', image: 'images/hotel/international/hotel-dubai2.avif', pricePerNight: 320 },
+        { name: 'Palm Oasis Hotel', destination: 'Dubai, UAE', image: 'images/hotel/international/hotel-dubai3.avif', pricePerNight: 250 },
+
+        //Sydney
+        { name: 'Harbour View Hotel', destination: 'Sydney, Australia', image: 'images/hotel/international/hotel-sydney1.avif', pricePerNight: 200 },
+        { name: 'Opera House Boutique', destination: 'Sydney, Australia', image: 'images/hotel/international/hotel-sydney2.avif', pricePerNight: 250 },
+        { name: 'Bondi Beach Resort', destination: 'Sydney, Australia', image: 'images/hotel/international/hotel-sydney3.avif', pricePerNight: 180 }
+    ]
+};
+
+/* ======================================================
+   FLIGHT PRICES
+====================================================== */
+const flightPrices = {
+    "Aracaju/SE": { "Rio de Janeiro/RJ": 180, "São Paulo/SP": 200 },
+    "Belém/PA": { "Rio de Janeiro/RJ": 280, "São Paulo/SP": 300 },
+    "Belo Horizonte/MG": { "Rio de Janeiro/RJ": 100, "São Paulo/SP": 120 },
+    "Boa Vista/RR": { "Rio de Janeiro/RJ": 350, "São Paulo/SP": 370 },
+    "Brasília/DF": { "Rio de Janeiro/RJ": 150, "São Paulo/SP": 170 }
+    // completar todos os trechos necessários
+};
+
+/* ======================================================
+   CURRENCY
+====================================================== */
+const exchangeRates = { USD: 1, BRL: 5, EUR: 0.9 };
+
+function formatPrice(priceUSD) {
+    const currency = localStorage.getItem(CURRENCY_KEY) || 'USD';
+    const localeMap = { USD: 'en-US', BRL: 'pt-BR', EUR: 'de-DE' };
+    return new Intl.NumberFormat(localeMap[currency], { style: 'currency', currency })
+        .format(priceUSD * exchangeRates[currency]);
 }
 
-/* ---------------- RENDER DESTINATIONS ---------------- */
-function renderDestinations() {
-    destinationsSection.innerHTML = `<h2>${translations[currentLanguage].destinations}</h2>`;
+function initializeCurrency() {
+    const select = document.querySelector('#currency');
+    if (!select) return;
 
-    ['national', 'international'].forEach(type => {
-        const title = document.createElement('h3');
-        title.textContent = translations[currentLanguage][type];
-        destinationsSection.appendChild(title);
+    const saved = localStorage.getItem(CURRENCY_KEY);
+    if (saved) select.value = saved;
 
-        const { grid, button, buttonContainer } = renderShowMoreGrid(
-            destinations[type],
-            dest => {
-                const card = document.createElement('div');
-                card.classList.add('card');
-                card.innerHTML = `<img src="${dest.image}" alt="${dest.name}"><p>${dest.name}</p>`;
-                return card;
-            }
-        );
+    select.addEventListener('change', () => {
+        localStorage.setItem(CURRENCY_KEY, select.value);
+        renderCards();
+        displayRoute();
+    });
+}
 
-        destinationsSection.appendChild(grid);
+/* ======================================================
+   DATES
+====================================================== */
+function initializeDates() {
+    const checkInInput = document.querySelector('#checkin');
+    const checkOutInput = document.querySelector('#checkout');
 
-        if (destinations[type].length > ITEMS_LIMIT) {
-            buttonContainer.appendChild(button);
-            destinationsSection.appendChild(buttonContainer);
+    if (!checkInInput || !checkOutInput) return;
+
+    const savedCheckIn = localStorage.getItem(CHECKIN_KEY);
+    const savedCheckOut = localStorage.getItem(CHECKOUT_KEY);
+
+    if (savedCheckIn) checkInInput.value = savedCheckIn;
+    if (savedCheckOut) checkOutInput.value = savedCheckOut;
+
+    checkInInput.addEventListener('change', () => {
+        localStorage.setItem(CHECKIN_KEY, checkInInput.value);
+        renderCards();
+    });
+
+    checkOutInput.addEventListener('change', () => {
+        localStorage.setItem(CHECKOUT_KEY, checkOutInput.value);
+        renderCards();
+    });
+}
+
+function calculateNights(checkIn, checkOut) {
+    if (!checkIn || !checkOut) return 0;
+    const diff = new Date(checkOut) - new Date(checkIn);
+    return diff > 0 ? diff / (1000 * 60 * 60 * 24) : 0;
+}
+
+/* ======================================================
+   RENDER CARDS
+====================================================== */
+function getDestinationPrice(origin, destination) {
+    return flightPrices[origin]?.[destination] || null;
+}
+
+function renderCards() {
+    const t = translations[getLanguage()];
+    const natGrid = document.querySelector('.national-grid');
+    const intlGrid = document.querySelector('.international-grid');
+    if (!natGrid || !intlGrid) return;
+
+    const isListingsPage = window.location.pathname.includes('listings.html');
+    const selectedDestination = localStorage.getItem(DESTINATION_KEY);
+
+    natGrid.innerHTML = '';
+    intlGrid.innerHTML = '';
+
+    const currentDestEl = document.getElementById('current-destination');
+    if (currentDestEl && selectedDestination) currentDestEl.textContent = selectedDestination;
+
+    if (!isListingsPage) {
+        const createCard = dest => {
+            const origin = localStorage.getItem(ORIGIN_KEY);
+            const price = origin ? getDestinationPrice(origin, dest.name) : null;
+            return `
+                <div class="card">
+                    <img src="${dest.image}" alt="${dest.name}">
+                    <h3>${dest.name}</h3>
+                    ${price ? `<p class="price">${t.from} ${formatPrice(price)}</p>` : ''}
+                    <button>${selectedDestination === dest.name ? t.selected : t.select}</button>
+                </div>
+            `;
+        };
+
+        natGrid.innerHTML = destinations.national.map(createCard).join('');
+        intlGrid.innerHTML = destinations.international.map(createCard).join('');
+        setupCardButtons();
+        return;
+    }
+
+    if (!selectedDestination) {
+        natGrid.innerHTML = `<p style="grid-column:1/-1; text-align:center;">Please select a destination first.</p>`;
+        return;
+    }
+
+    // Render accommodations for the listings page
+    const origin = localStorage.getItem(ORIGIN_KEY);
+    const checkIn = localStorage.getItem(CHECKIN_KEY);
+    const checkOut = localStorage.getItem(CHECKOUT_KEY);
+    const nights = calculateNights(checkIn, checkOut);
+
+    const accoms = accommodations.national.concat(accommodations.international)
+        .filter(a => a.destination === selectedDestination);
+
+    if (accoms.length === 0) {
+        natGrid.innerHTML = `<p style="grid-column:1/-1; text-align:center;">${t.noAccommodations}</p>`;
+        return;
+    }
+
+    const accomCard = a => `<div class="card">
+        <img src="${a.image}" alt="${a.name}">
+        <h3>${a.name}</h3>
+        <p class="price">${t.from} ${formatPrice(a.pricePerNight * nights)}</p>
+    </div>`;
+
+    natGrid.innerHTML = accoms.map(accomCard).join('');
+}
+
+/* ======================================================
+   ROUTE DISPLAY
+====================================================== */
+function displayRoute() {
+    const route = document.querySelector('#selected-route');
+    if (!route) return;
+
+    const origin = localStorage.getItem(ORIGIN_KEY);
+    const dest = localStorage.getItem(DESTINATION_KEY);
+
+    route.textContent = origin ? dest ? `${origin} → ${dest}` : `${origin} → ...` : '...';
+}
+
+/* ======================================================
+   STAY PERIOD
+====================================================== */
+function displayStayPeriod() {
+    const el = document.getElementById('stay-period');
+    if (!el) return;
+
+    const checkIn = localStorage.getItem(CHECKIN_KEY);
+    const checkOut = localStorage.getItem(CHECKOUT_KEY);
+    if (!checkIn || !checkOut) { el.textContent = ''; return; }
+
+    const nights = calculateNights(checkIn, checkOut);
+    const options = { month: 'short', day: 'numeric' };
+    const formatted = `${new Date(checkIn).toLocaleDateString('en-US', options)} – ${new Date(checkOut).toLocaleDateString('en-US', options)}`;
+    el.textContent = `${nights} night${nights > 1 ? 's' : ''} · ${formatted}`;
+}
+
+/* ======================================================
+   MODAL & CARD INTERACTIONS
+====================================================== */
+const modal = document.querySelector('#destinationModal');
+const btnTrips = document.querySelector('#goTrips');
+const btnAccom = document.querySelector('#goAccommodations');
+const btnClose = document.querySelector('#closeModal');
+
+function showModal() { modal?.classList.remove('hidden'); }
+function hideModal() { modal?.classList.add('hidden'); }
+
+function highlightSelectedCard(destName) {
+    const t = translations[getLanguage()];
+    document.querySelectorAll('.card').forEach(card => {
+        const name = card.querySelector('h3')?.textContent;
+        const btn = card.querySelector('button');
+        if (!btn) return;
+
+        if (name === destName) {
+            card.classList.add('selected'); card.classList.remove('not-selected');
+            btn.textContent = t.selected;
+            btn.style.backgroundColor = '#f4a261';
+            card.style.opacity = '1';
+        } else {
+            card.classList.remove('selected'); card.classList.add('not-selected');
+            btn.textContent = t.select;
+            btn.style.backgroundColor = '#2f5d7c';
+            card.style.opacity = '0.6';
         }
     });
 }
 
-/* ---------------- RENDER ACCOMMODATIONS ---------------- */
-function renderListings() {
-    listingsSection.innerHTML = `<h2>${translations[currentLanguage].accommodations}</h2>`;
+function setupCardButtons() {
+    document.querySelectorAll('.card button').forEach(btn => {
+        btn.onclick = e => {
+            const card = e.target.closest('.card');
+            const destName = card.querySelector('h3').textContent;
 
-    const groups = [
-        { title: translations[currentLanguage].nationalAcc, data: accommodations.filter(a => !a.city.includes(',')) },
-        { title: translations[currentLanguage].internationalAcc, data: accommodations.filter(a => a.city.includes(',')) }
-    ];
-
-    groups.forEach(group => {
-        const h3 = document.createElement('h3');
-        h3.textContent = group.title;
-        listingsSection.appendChild(h3);
-
-        const { grid, button, buttonContainer } = renderShowMoreGrid(
-            group.data,
-            item => {
-                const card = document.createElement('div');
-                card.classList.add('card');
-                card.innerHTML = `
-          <img src="${item.image}" alt="${item.name}">
-          <h3>${item.name}</h3>
-          <p>${item.city}</p>
-          <p>${formatPrice(item.price)} ${translations[currentLanguage].perNight}</p>
-          <button>${translations[currentLanguage].addTrip}</button>
-        `;
-                return card;
+            if (btn.textContent === 'Selected') {
+                localStorage.removeItem(DESTINATION_KEY);
+                hideModal();
+            } else {
+                localStorage.setItem(DESTINATION_KEY, destName);
+                highlightSelectedCard(destName);
+                showModal();
             }
-        );
 
-        listingsSection.appendChild(grid);
-
-        if (group.data.length > ITEMS_LIMIT) {
-            buttonContainer.appendChild(button);
-            listingsSection.appendChild(buttonContainer);
-        }
+            displayRoute();
+        };
     });
+
+    btnTrips && (btnTrips.onclick = () => location.href = 'trips.html');
+    btnAccom && (btnAccom.onclick = () => location.href = 'listings.html');
+    btnClose && (btnClose.onclick = hideModal);
 }
 
-/* ---------------- LANGUAGE SWITCH ---------------- */
-const languageToggle = document.querySelector('#languageToggle');
-const currentFlag = document.querySelector('#currentFlag');
-const currentLang = document.querySelector('#currentLang');
+/* ======================================================
+   CHANGE DESTINATION
+====================================================== */
+function changeDestination() {
+    localStorage.removeItem(DESTINATION_KEY);
+    window.location.href = 'wanderly.html';
+}
 
-const flags = {
-    en: { text: 'EN', image: 'images/flag-uk.svg' },
-    pt: { text: 'PT', image: 'images/flag-br.svg' }
-};
-
-// Inicializa UI
-currentFlag.src = flags[currentLanguage].image;
-currentLang.textContent = flags[currentLanguage].text;
-
-// Abrir / fechar dropdown
-languageToggle.addEventListener('click', () => {
-    languageToggle.classList.toggle('open');
+/* ======================================================
+   INIT
+====================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+    initializeLanguage();
+    populateOrigins();
+    initializeCurrency();
+    initializeDates();
+    renderCards();
+    displayRoute();
+    displayStayPeriod();
 });
-
-// Seleção de idioma
-document.querySelectorAll('.language-dropdown li').forEach(item => {
-    item.addEventListener('click', () => {
-        const selectedLang = item.dataset.lang;
-        currentLanguage = selectedLang;
-        localStorage.setItem('language', currentLanguage);
-
-        currentFlag.src = flags[selectedLang].image;
-        currentLang.textContent = flags[selectedLang].text;
-
-        languageToggle.classList.remove('open');
-
-        renderDestinations();
-        renderListings();
-    });
-});
-
-// Fechar dropdown ao clicar fora
-document.addEventListener('click', e => {
-    if (!languageToggle.contains(e.target)) {
-        languageToggle.classList.remove('open');
-    }
-});
-
-// Fallback para bandeira
-currentFlag.onerror = () => {
-    currentFlag.src = 'images/flag-default.png';
-};
-
-/* ---------------- INIT ---------------- */
-renderDestinations();
-renderListings();
